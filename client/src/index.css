@@ -56,4 +56,5 @@ p {
   height: 40px;
   width: 40px;
   fill: var(--font-color-2);
+  margin: 10px;
 }

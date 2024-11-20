@@ -1,22 +1,62 @@
-.contenedor_tarjeta {
-  height: 60px;
+.contenedor_tarjeta_profesor {
+  min-height: 60px;
   width: 80%;
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
   background-color: var(--bg-color-3);
-  padding: 20px;
-  border-radius: 20px;
+  border-radius: 10px;
+  transition: min-height 0.1s;
 }
 
 .expanded {
-  height: 234px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 234px;
+}
+
+.tarjeta_profesor_datos_container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: top;
+  justify-content: space-between;
+}
+
+.mini_contenedor_tarjeta_profesor {
+  margin: 0 10px 0 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.contenedor_tarjeta_profesor .texto-mayor {
+  margin: 0 10px 0 10px;
+}
+
+.tarjeta_profesor_datos-expandido {
+  display: flex;
+  flex-direction: row;
+}
+
+.tarjeta_profesor_datos-vertical {
+  padding: 10px;
+}
+.tarjeta_profesor_datos-vertical h2,
+.tarjeta_profesor_datos-vertical .texto-mayor {
+  padding: 10px 0 0 0;
+}
+
+.expanded .texto-mayor {
+  margin: 0;
 }
 
 .chevron-icon-up {
   rotate: 180deg;
 }
 
-.contenedor_tarjeta {
-  transition: height 0.2s;
+.selectable {
+  cursor: pointer;
 }

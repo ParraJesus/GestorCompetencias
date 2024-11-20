@@ -1,5 +1,5 @@
 import "./App.css";
-import { ProfesorCardClosed } from "./components/ProfesorCard";
+import ProfesorCard from "./components/ProfesorCard";
 
 function App() {
   return (
@@ -10,7 +10,7 @@ function App() {
       <p className="texto-mayor">hola, mundo</p>
       <p className="texto-menor">hola, mundo</p>
       <div className="container">
-        <ProfesorCardClosed
+        <ProfesorCard
           nombre={"Melissa"}
           apellido={"Gugu"}
           documento={"1100000000"}
