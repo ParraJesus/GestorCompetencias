@@ -1,0 +1,22 @@
+.contenedor_tarjeta {
+  height: 60px;
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: var(--bg-color-3);
+  padding: 20px;
+  border-radius: 20px;
+}
+
+.expanded {
+  height: 234px;
+}
+
+.chevron-icon-up {
+  rotate: 180deg;
+}
+
+.contenedor_tarjeta {
+  transition: height 0.2s;
+}

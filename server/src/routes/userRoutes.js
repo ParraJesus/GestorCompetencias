@@ -4,7 +4,7 @@ const router = express.Router();
 
 //routes
 router.get("/profile", (req, res) => {
-  res.send("profile");
+  res.send("profileasdasddsa");
 });
 
 //export
