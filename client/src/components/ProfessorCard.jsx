@@ -1,8 +1,20 @@
 import React, { useState } from "react";
-import "../stylesheets/ProfesorCard.css";
+import "../stylesheets/UserCard.css";
 import { ReactComponent as UserIcon } from "../assets/bxs-user-circle.svg";
 import { ReactComponent as Chevron } from "../assets/bx-chevron-down.svg";
-
+/*
+<ProfesorCard
+  nombre={"Melissa"}
+  apellido={"Gugu"}
+  documento={"1100000000"}
+  tipoDocumento={"CC"}
+  tipoDocente={"Planta"}
+  ultimoTitulo={"Doctorado"}
+  id={"001"}
+  nombreUsuario={"mgu"}
+  correoInstitucional={"mgo@unicauca.edu.co"}
+/>
+*/
 const ProfesorCard = ({
   nombre,
   apellido,
@@ -18,19 +30,19 @@ const ProfesorCard = ({
 
   return (
     <div
-      className={`contenedor_tarjeta_profesor ${
+      className={`expandableCard_container ${
         isExpanded ? "expanded" : ""
       }`.trimEnd()}
     >
       {!isExpanded && (
         <>
-          <div className="mini_contenedor_tarjeta_profesor">
+          <div className="closed_section_container">
             <UserIcon className="small-icon" />
             <h2>
               {nombre} {apellido}
             </h2>
           </div>
-          <div className="mini_contenedor_tarjeta_profesor">
+          <div className="closed_section_container">
             <p className="texto-mayor">
               {ultimoTitulo} / {tipoDocente}
             </p>
@@ -49,10 +61,10 @@ const ProfesorCard = ({
       )}
       {isExpanded && (
         <>
-          <div className="tarjeta_profesor_datos_container">
-            <div className="tarjeta_profesor_datos-expandido">
+          <div className="expandableCard_open_data_container">
+            <div className="open_section_container">
               <UserIcon className="small-icon" />
-              <div className="tarjeta_profesor_datos-vertical">
+              <div className="open_section_data">
                 <h2>
                   {nombre} {apellido}
                 </h2>
@@ -67,8 +79,7 @@ const ProfesorCard = ({
                 <p className="texto-mayor">{correoInstitucional}</p>
               </div>
             </div>
-
-            <div className="tarjeta_profesor_datos-expandido">
+            <div className="open_section_container">
               <Chevron
                 className="small-icon chevron-icon-up selectable"
                 onClick={() => {
@@ -77,7 +88,7 @@ const ProfesorCard = ({
               />
             </div>
           </div>
-          <div className="tarjeta_profesor_boton_container">
+          <div className="expandableCard_button_container">
             <button>Editar</button>
             <button>Deshabilitar</button>
           </div>

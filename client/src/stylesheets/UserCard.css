@@ -1,4 +1,4 @@
-.contenedor_tarjeta_profesor {
+.expandableCard_container {
   min-height: 60px;
   width: 80%;
   display: flex;
@@ -11,13 +11,13 @@
 }
 
 .expanded {
+  min-height: 234px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: 234px;
 }
 
-.tarjeta_profesor_datos_container {
+.expandableCard_open_data_container {
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -25,28 +25,40 @@
   justify-content: space-between;
 }
 
-.mini_contenedor_tarjeta_profesor {
+.closed_section_container {
   margin: 0 10px 0 10px;
   display: flex;
   flex-direction: row;
   align-items: center;
 }
 
-.contenedor_tarjeta_profesor .texto-mayor {
+.expandableCard_container .texto-mayor {
   margin: 0 10px 0 10px;
 }
 
-.tarjeta_profesor_datos-expandido {
+.open_section_container {
   display: flex;
   flex-direction: row;
+  margin: 0 10px 0 10px;
 }
 
-.tarjeta_profesor_datos-vertical {
+.open_section_data {
   padding: 10px;
 }
-.tarjeta_profesor_datos-vertical h2,
-.tarjeta_profesor_datos-vertical .texto-mayor {
+
+.open_section_data h2 {
+  padding: 5px 0 0 0;
+}
+
+.open_section_data .texto-mayor {
   padding: 10px 0 0 0;
+}
+
+.expandableCard_button_container {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  align-items: center;
 }
 
 .expanded .texto-mayor {

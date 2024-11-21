@@ -1,29 +1,11 @@
 import "./App.css";
-import ProfesorCard from "./components/ProfesorCard";
+//import ProfessorCard from "./components/ProfessorCard";
+//import EvaluadorCard from "./components/EvaluatorCard";
+//import StudentCard from "./components/StudentCard";
+//import ProgramCard from "./components/ProgramCard";
 
 function App() {
-  return (
-    <div className="App">
-      <h1>hola, mundo</h1>
-      <h2>hola, mundo</h2>
-      <p>hola, mundo</p>
-      <p className="texto-mayor">hola, mundo</p>
-      <p className="texto-menor">hola, mundo</p>
-      <div className="container">
-        <ProfesorCard
-          nombre={"Melissa"}
-          apellido={"Gugu"}
-          documento={"1100000000"}
-          tipoDocumento={"CC"}
-          tipoDocente={"Planta"}
-          ultimoTitulo={"Doctorado"}
-          id={"001"}
-          nombreUsuario={"mgu"}
-          correoInstitucional={"mgo@unicauca.edu.co"}
-        />
-      </div>
-    </div>
-  );
+  return <div className="App"></div>;
 }
 
 export default App;
