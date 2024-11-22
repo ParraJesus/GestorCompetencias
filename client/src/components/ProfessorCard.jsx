@@ -3,7 +3,7 @@ import "../stylesheets/UserCard.css";
 import { ReactComponent as UserIcon } from "../assets/bxs-user-circle.svg";
 import { ReactComponent as Chevron } from "../assets/bx-chevron-down.svg";
 /*
-<ProfesorCard
+<ProfessorCard
   nombre={"Melissa"}
   apellido={"Gugu"}
   documento={"1100000000"}
