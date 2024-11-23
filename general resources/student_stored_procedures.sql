@@ -1,10 +1,55 @@
 /* --------------------------------- ESTUDIANTE --------------------------------- */
 
 /*	OBTENER	*/
+
 DELIMITER //
 CREATE PROCEDURE Estudiante_ObtenerOrdenados()
 BEGIN
     SELECT * FROM estudiante
+    ORDER BY ESTADO DESC;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE Estudiante_ObtenerPorNombre(
+	IN p_nombre VARCHAR(255)
+)
+BEGIN
+    SELECT * FROM estudiante
+    WHERE NOMBRE LIKE CONCAT(p_nombre, '%')
+    ORDER BY ESTADO DESC;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE Estudiante_ObtenerPorApellido(
+	IN p_apellido VARCHAR(255)
+)
+BEGIN
+    SELECT * FROM estudiante
+    WHERE APELLIDO LIKE CONCAT(p_apellido, '%')
+    ORDER BY ESTADO DESC;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE Estudiante_ObtenerPorID(
+	IN p_id VARCHAR(255)
+)
+BEGIN
+    SELECT * FROM estudiante
+    WHERE ESTUDIANTE_ID LIKE CONCAT(p_id, '%')
+    ORDER BY ESTADO DESC;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE Estudiante_ObtenerPorDocumento(
+	IN p_doc VARCHAR(255)
+)
+BEGIN
+    SELECT * FROM ESTUDIANTE
+    WHERE DOCUMENTO LIKE CONCAT(p_doc, '%')
     ORDER BY ESTADO DESC;
 END //
 DELIMITER ;

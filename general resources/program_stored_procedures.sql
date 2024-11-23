@@ -10,6 +10,50 @@ BEGIN
 END //
 DELIMITER ;
 
+DELIMITER //
+CREATE PROCEDURE Programa_ObtenerPorNombre(
+	IN p_nombre VARCHAR(255)
+)
+BEGIN
+    SELECT * FROM programa
+    WHERE NOMBRE LIKE CONCAT(p_nombre, '%')
+    ORDER BY ESTADO DESC;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE Programa_ObtenerPorTipo(
+	IN p_tipo VARCHAR(255)
+)
+BEGIN
+    SELECT * FROM programa
+    WHERE TIPO_PROGRAMA LIKE CONCAT(p_tipo, '%')
+    ORDER BY ESTADO DESC;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE Programa_ObtenerPorID(
+	IN p_id VARCHAR(255)
+)
+BEGIN
+    SELECT * FROM programa
+    WHERE PROGRAMA_ID LIKE CONCAT(p_id, '%')
+    ORDER BY ESTADO DESC;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE Programa_ObtenerPorFacultad(
+	IN p_facultad VARCHAR(255)
+)
+BEGIN
+    SELECT * FROM programa
+    WHERE FACULTAD LIKE CONCAT(p_facultad, '%')
+    ORDER BY ESTADO DESC;
+END //
+DELIMITER ;
+
 /*	CREAR	*/
 
 DELIMITER //
