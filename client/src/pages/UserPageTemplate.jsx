@@ -8,6 +8,7 @@ import { ReactComponent as EvaluatorIcon } from "../assets/bxs-evaluator.svg";
 import { ReactComponent as ProgramIcon } from "../assets/bxs-program.svg";
 import { ReactComponent as MatriculeIcon } from "../assets/bxs-matricule.svg";
 import ProfessorCard from "../components/ProfessorCard";
+import SearchBar from "../components/SearchBar";
 
 function App() {
   const [isSideMenuExpanded, setSideMenuExpanded] = useState(false);
@@ -50,6 +51,25 @@ function App() {
     },
   ];
 
+  const [currentFilter, setCurrentFilter] = useState(""); //guardar en una variable el filtro seleccionado
+  const [searchQuery, setSearchQuery] = useState(""); //guardar en una variable el texto de búsqueda
+
+  const filtersForProfessors = [
+    { label: "Nombre", value: "name" },
+    { label: "ID", value: "id" },
+    { label: "Número de documento", value: "documento" },
+    { label: "Cargo", value: "tipoDocente" },
+    { label: "Título académico", value: "ultimoTitulo" },
+  ];
+
+  const handleFilterChange = (filter) => {
+    setCurrentFilter(filter);
+  };
+
+  const handleSearchChange = (query) => {
+    setSearchQuery(query);
+  };
+
   return (
     <div className={Style.page_container}>
       <Header titulo={"Título provicional"} isExpanded={isSideMenuExpanded} />
@@ -59,7 +79,14 @@ function App() {
           onExpandedChange={handleExpandedChange}
         />
         <main className={Style.main}>
-          <div className={Style.main_header}>adalskj</div>
+          <div className={Style.main_header}>
+            <SearchBar
+              placeholdertext={"Buscar profesor..."}
+              filters={filtersForProfessors}
+              onFilterChange={handleFilterChange}
+              onSearchChange={handleSearchChange}
+            />
+          </div>
           <div className={Style.main_content}>
             <ProfessorCard
               nombre={"Melissa"}
