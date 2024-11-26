@@ -12,13 +12,14 @@
   --bg-color-3: #fff;
   --bg-color-4: #dcdbf0;
 
-  --bg-color-5: #5e3edf;
+  --bg-color-5: #693edf;
   --bg-color-6: #d4bfed;
 }
 
 * {
   margin: 0;
   box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
 body {

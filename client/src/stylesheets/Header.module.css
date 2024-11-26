@@ -1,0 +1,25 @@
+.header {
+  width: 100%;
+  height: 50px;
+  background-color: var(--bg-color-4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.color_container {
+  background-color: var(--bg-color-5);
+  min-width: 80px;
+  height: 50px;
+  transition: min-width 0.3s ease;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.expanded {
+  min-width: 100px;
+}
