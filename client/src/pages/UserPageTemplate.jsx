@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import Style from "../stylesheets/UserPageTemplate.module.css";
 import Header from "../components/Header.jsx";
 import SideMenu from "../components/SideMenu.jsx";
+import ProfessorCard from "../components/ProfessorCard";
+import SearchBar from "../components/SearchBar";
 import { ReactComponent as ProfessorIcon } from "../assets/bxs-professor.svg";
 import { ReactComponent as StudentIcon } from "../assets/bxs-student.svg";
 import { ReactComponent as EvaluatorIcon } from "../assets/bxs-evaluator.svg";
 import { ReactComponent as ProgramIcon } from "../assets/bxs-program.svg";
 import { ReactComponent as MatriculeIcon } from "../assets/bxs-matricule.svg";
-import ProfessorCard from "../components/ProfessorCard";
-import SearchBar from "../components/SearchBar";
 
 function App() {
   const [isSideMenuExpanded, setSideMenuExpanded] = useState(false);

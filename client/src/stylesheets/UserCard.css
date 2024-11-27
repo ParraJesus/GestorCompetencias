@@ -86,6 +86,66 @@
   rotate: 180deg;
 }
 
+.chevron-icon-left {
+  rotate: 90deg;
+}
+
 .selectable {
   cursor: pointer;
+}
+
+.asignature_data_container {
+  width: 100%;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: min-height 0.3s;
+}
+
+.asignature_data_container .paragraph {
+  min-height: 100%;
+  text-align: justify;
+  margin: 20px;
+  transition: min-height 0.3s;
+}
+
+.asignature_headerdata_container {
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 10px 0 10px;
+  transition: min-height 0.3s;
+}
+
+.asignature_headerdata_container .texto-mayor {
+  margin: 0 10px 0 10px;
+}
+.semester .texto-mayor {
+  margin: 0 10px 0 10px;
+}
+
+.asignature {
+  background-color: var(--bg-color-3);
+}
+
+.semester {
+  background-color: var(--bg-color-4);
+}
+
+.semester_data_container {
+  padding: 10px;
+  width: 100%;
+}
+
+.competence_data_container {
+  min-height: 100%;
+  text-align: justify;
+  margin: 20px;
+  transition: min-height 0.3s;
+}
+
+.competence_data_container .paragraph {
+  margin: 10px;
 }
