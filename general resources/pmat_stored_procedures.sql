@@ -13,7 +13,6 @@ BEGIN
         assem.NOMBRE AS NOMBRE_MATERIA,
         assem.GRUPO AS GRUPO_MATERIA,
         assem.AS_ID AS MATERIA_ID,
-        m.MATRICULA_ID AS MATRICULA_ID,
         prof.PROF_ID AS PROFESOR_ID,
         CONCAT(prof.NOMBRE, ' ', prof.APELLIDO) AS NOMBRE_PROFESOR,
         eval.EVALUADOR_ID AS EVALUADOR_ID,
@@ -65,16 +64,14 @@ CREATE PROCEDURE PMAT_Editar(
     IN p_pmat_id INT,
     IN p_periodo_id INT,
     IN p_prof_id INT,
-    IN p_evaluador_id INT,
-    IN p_matricula_id INT
+    IN p_evaluador_id INT
 )
 BEGIN
     UPDATE PERIODO_MATRICULA
     SET 
         PERIODO_ID = p_periodo_id,
         PROF_ID = p_prof_id,
-        EVALUADOR_ID = p_evaluador_id,
-        MATRICULA_ID = p_matricula_id
+        EVALUADOR_ID = p_evaluador_id
     WHERE PMAT_ID = p_pmat_id;
 END //
 DELIMITER ;
