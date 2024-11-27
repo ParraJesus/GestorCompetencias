@@ -31,7 +31,7 @@ body {
 h1 {
   font-size: 2rem;
   font-weight: bold;
-  color: var(--font-color-1);
+  color: var(--font-color-2);
 }
 
 h2 {
@@ -61,4 +61,66 @@ h2 {
   width: 40px;
   fill: var(--font-color-2);
   margin: 10px;
+}
+
+.button-first {
+  color: #fff;
+  background: linear-gradient(-45deg, #c187e2, #693edf);
+}
+
+.button-second {
+  position: relative;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  color: transparent;
+  background: linear-gradient(to right, #7476dc, #c187e2);
+  -webkit-background-clip: text;
+  background-clip: text;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.button-second::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 10px;
+  background: linear-gradient(to right, #7476dc, #c187e2);
+  z-index: -1;
+  padding: 2px;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask-composite: exclude;
+}
+
+.button-third {
+  background: linear-gradient(to right, #7476dc, #c187e2);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+button {
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  color: var(--font-color-2);
+  padding: 10px 20px 10px 20px;
+  margin: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 80%;
 }

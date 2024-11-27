@@ -7,6 +7,7 @@
   align-items: start;
   flex-grow: 1;
   padding-top: 10px;
+  background: linear-gradient(to top, #c187e2, #693edf);
 }
 
 .expanded {

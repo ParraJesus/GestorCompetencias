@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Style from "../stylesheets/UserPageTemplate.module.css";
 import Header from "../components/Header.jsx";
 import SideMenu from "../components/SideMenu.jsx";
-import ProfessorCard from "../components/ProfessorCard";
+import EvaluatorCard from "../components/EvaluatorCard.jsx";
 import SearchBar from "../components/SearchBar";
 import { ReactComponent as ProfessorIcon } from "../assets/bxs-professor.svg";
 import { ReactComponent as StudentIcon } from "../assets/bxs-student.svg";
@@ -54,12 +54,11 @@ function App() {
   const [currentFilter, setCurrentFilter] = useState(""); //guardar en una variable el filtro seleccionado
   const [searchQuery, setSearchQuery] = useState(""); //guardar en una variable el texto de búsqueda
 
-  const filtersForProfessors = [
+  const filtersForEvaluators = [
     { label: "Nombre", value: "name" },
+    { label: "Apellido", value: "name" },
     { label: "ID", value: "id" },
     { label: "Número de documento", value: "documento" },
-    { label: "Cargo", value: "tipoDocente" },
-    { label: "Título académico", value: "ultimoTitulo" },
   ];
 
   const handleFilterChange = (filter) => {
@@ -70,9 +69,21 @@ function App() {
     setSearchQuery(query);
   };
 
+  const evaluatorsData = [
+    {
+      id: "1",
+      nombre: "Pablo",
+      apellido: "Morillo",
+      documento: "1234567890",
+      tipoDocumento: "CC",
+      nombreUsuario: "pmorillo",
+      correoInstitucional: "pmorillo@unicauca.edu.co",
+    },
+  ];
+
   return (
     <div className={Style.page_container}>
-      <Header titulo={"Gestión Profesores"} isExpanded={isSideMenuExpanded} />
+      <Header titulo={"Gestión Evaluadores"} isExpanded={isSideMenuExpanded} />
       <div className={Style.main_container}>
         <SideMenu
           menuData={sideMenuData}
@@ -81,79 +92,25 @@ function App() {
         <main className={Style.main}>
           <div className={Style.main_header}>
             <SearchBar
-              placeholdertext={"Buscar profesor..."}
-              filters={filtersForProfessors}
+              placeholdertext={"Buscar evaluador..."}
+              filters={filtersForEvaluators}
               onFilterChange={handleFilterChange}
               onSearchChange={handleSearchChange}
             />
           </div>
           <div className={Style.main_content}>
-            <ProfessorCard
-              nombre={"Melissa"}
-              apellido={"Gugu"}
-              documento={"1100000000"}
-              tipoDocumento={"CC"}
-              tipoDocente={"Planta"}
-              ultimoTitulo={"Doctorado"}
-              id={"001"}
-              nombreUsuario={"mgu"}
-              correoInstitucional={"mgo@unicauca.edu.co"}
-            />
-            <ProfessorCard
-              nombre={"Melissa"}
-              apellido={"Gugu"}
-              documento={"1100000000"}
-              tipoDocumento={"CC"}
-              tipoDocente={"Planta"}
-              ultimoTitulo={"Doctorado"}
-              id={"001"}
-              nombreUsuario={"mgu"}
-              correoInstitucional={"mgo@unicauca.edu.co"}
-            />
-            <ProfessorCard
-              nombre={"Melissa"}
-              apellido={"Gugu"}
-              documento={"1100000000"}
-              tipoDocumento={"CC"}
-              tipoDocente={"Planta"}
-              ultimoTitulo={"Doctorado"}
-              id={"001"}
-              nombreUsuario={"mgu"}
-              correoInstitucional={"mgo@unicauca.edu.co"}
-            />
-            <ProfessorCard
-              nombre={"Melissa"}
-              apellido={"Gugu"}
-              documento={"1100000000"}
-              tipoDocumento={"CC"}
-              tipoDocente={"Planta"}
-              ultimoTitulo={"Doctorado"}
-              id={"001"}
-              nombreUsuario={"mgu"}
-              correoInstitucional={"mgo@unicauca.edu.co"}
-            />
-            <ProfessorCard
-              nombre={"Melissa"}
-              apellido={"Gugu"}
-              documento={"1100000000"}
-              tipoDocumento={"CC"}
-              tipoDocente={"Planta"}
-              ultimoTitulo={"Doctorado"}
-              id={"001"}
-              nombreUsuario={"mgu"}
-              correoInstitucional={"mgo@unicauca.edu.co"}
-            />
-            <ProfessorCard
-              nombre={"Melissa"}
-              apellido={"Gugu"}
-              documento={"1100000000"}
-              tipoDocumento={"CC"}
-              tipoDocente={"Planta"}
-              ultimoTitulo={"Doctorado"}
-              id={"001"}
-              nombreUsuario={"mgu"}
-              correoInstitucional={"mgo@unicauca.edu.co"}
-            />
+            {evaluatorsData.map((professor) => (
+              <EvaluatorCard
+                key={professor.id}
+                id={professor.id}
+                nombre={professor.nombre}
+                apellido={professor.apellido}
+                documento={professor.documento}
+                tipoDocumento={professor.tipoDocumento}
+                nombreUsuario={professor.nombreUsuario}
+                correoInstitucional={professor.correoInstitucional}
+              />
+            ))}
           </div>
         </main>
       </div>

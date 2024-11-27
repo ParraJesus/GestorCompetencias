@@ -80,8 +80,8 @@ const EvaluadorCard = ({
             </div>
           </div>
           <div className="expandableCard_button_container">
-            <button>Editar</button>
-            <button>Deshabilitar</button>
+            <button className="button-second">Editar</button>
+            <button className="button-first">Deshabilitar</button>
           </div>
         </>
       )}
