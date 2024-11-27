@@ -22,11 +22,11 @@ router.post("/create", (req, res) => {
 
 //ACTUALIZAR
 router.put("/update", (req, res) => {
-    const { id, documento, tipoDocumento, nombre, apellido, usuario, contrasena, correo, tipo, titulo, estado } = req.body;
+    const { id, documento, tipoDocumento, nombre, apellido, usuario, contrasena, correo, tipo, titulo } = req.body;
 
     db.query(
         "CALL Profesor_Editar(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        [id, documento, tipoDocumento, nombre, apellido, usuario, contrasena, correo, tipo, titulo, estado],
+        [id, documento, tipoDocumento, nombre, apellido, usuario, contrasena, correo, tipo, titulo],
         (err, result) => {
             if (err) {
                 console.error(err);

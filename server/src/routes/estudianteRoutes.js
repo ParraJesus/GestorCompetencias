@@ -21,8 +21,9 @@ router.post("/create", (req, res) => {
 });
 
 //ACTUALIZAR
-router.put("/update", (req, res) => {
-    const { id, documento, tipoDocumento, nombre, apellido, usuario, contrasena, correo, estado } = req.body;
+router.put("/update/:id", (req, res) => {
+    const {id} = req.params;
+    const {documento, tipoDocumento, nombre, apellido, usuario, contrasena, correo, estado } = req.body;
 
     db.query(
         "CALL Estudiante_Editar(?, ?, ?, ?, ?, ?, ?, ?, ?)",

@@ -102,7 +102,8 @@ CREATE PROCEDURE Estudiante_Editar(
     IN p_apellido VARCHAR(255),
     IN p_usuario VARCHAR(255),
     IN p_contrasena VARCHAR(255),
-    IN p_correo_institucional VARCHAR(255)
+    IN p_correo_institucional VARCHAR(255),
+    IN p_estado ENUM('0', '1') 
 )
 BEGIN
     UPDATE ESTUDIANTE
@@ -112,7 +113,8 @@ BEGIN
         APELLIDO = p_apellido,
         USUARIO = p_usuario,
         CONTRASENA = p_contrasena,
-        CORREO_INSTITUCIONAL = p_correo_institucional
+        CORREO_INSTITUCIONAL = p_correo_institucional,
+        ESTADO = p_estado
     WHERE ESTUDIANTE_ID = p_estudiante_id;
 END //
 DELIMITER ;

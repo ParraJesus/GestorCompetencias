@@ -14,7 +14,7 @@ router.post("/create", (req, res) => {
                 console.error(err);
                 res.status(500).send("Error al registrar al evaluador");
             } else {
-                res.send("Evaluadpr registrado con éxito");
+                res.send("Evaluador registrado con éxito");
             }
         }
     );
@@ -22,17 +22,17 @@ router.post("/create", (req, res) => {
 
 //ACTUALIZAR
 router.put("/update", (req, res) => {
-    const { id, documento, tipoDocumento, nombre, apellido, usuario, contrasena, correo, estado } = req.body;
+    const { id, documento, tipoDocumento, nombre, apellido, usuario, contrasena, correo } = req.body;
 
     db.query(
-        "CALL Evaluador_Editar(?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        [id, documento, tipoDocumento, nombre, apellido, usuario, contrasena, correo, estado],
+        "CALL Evaluador_Editar(?, ?, ?, ?, ?, ?, ?, ?)",
+        [id, documento, tipoDocumento, nombre, apellido, usuario, contrasena, correo],
         (err, result) => {
             if (err) {
                 console.error(err);
-                res.status(500).send("Error al actualizar al estudiante");
+                res.status(500).send("Error al actualizar al evaluador");
             } else {
-                res.send("Estudiante actualizado con éxito");
+                res.send("Evaluador actualizado con éxito");
             }
         }
     );
@@ -71,7 +71,7 @@ router.get("/", (req, res) => {
             console.error(err);
             res.status(500).send("Error al obtener los evaluadores");
         } else {
-            res.send(result[0]); 
+            res.send(result[0]);    
         }
     });
 });
