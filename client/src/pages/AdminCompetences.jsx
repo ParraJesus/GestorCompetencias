@@ -174,9 +174,14 @@ function App() {
                 onSearchChange={handleSearchChange}
               />
             </div>
-            {competencesData.map((competence) => (
-              <CompetenceCard key={competence.id} competenceData={competence} />
-            ))}
+            <div className={Style.main_content}>
+              {competencesData.map((competence) => (
+                <CompetenceCard
+                  key={competence.id}
+                  competenceData={competence}
+                />
+              ))}
+            </div>
           </div>
         </main>
       </div>

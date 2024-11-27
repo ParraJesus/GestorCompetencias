@@ -42,12 +42,9 @@ body {
   overflow-x: hidden;
 }
 
-.main_two_columns .main_header {
+.main_two_columns .main_header,
+.main_two_columns .main_content {
   padding: 0 10px 0 0;
-}
-
-.main_two_columns .main_column .expandableCard_container {
-  background-color: aqua;
 }
 
 .main_column {
