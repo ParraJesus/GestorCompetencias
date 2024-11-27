@@ -62,9 +62,9 @@ const AsignatureCard = ({
             <p className="paragraph">{descripcion}</p>
           </div>
           <div className="expandableCard_button_container">
-            <button>Competencias</button>
-            <button>Editar</button>
-            <button>Deshabilitar</button>
+            <button className="button-second">Competencias</button>
+            <button className="button-second">Editar</button>
+            <button className="button-first">Deshabilitar</button>
           </div>
         </>
       )}

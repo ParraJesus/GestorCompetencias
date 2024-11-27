@@ -55,7 +55,8 @@ function App() {
   const [searchQuery, setSearchQuery] = useState(""); //guardar en una variable el texto de búsqueda
 
   const filtersForProfessors = [
-    { label: "Nombre", value: "name" },
+    { label: "Nombre", value: "nombre" },
+    { label: "Apellido", value: "apellido" },
     { label: "ID", value: "id" },
     { label: "Número de documento", value: "documento" },
     { label: "Cargo", value: "tipoDocente" },
@@ -69,6 +70,42 @@ function App() {
   const handleSearchChange = (query) => {
     setSearchQuery(query);
   };
+
+  const professorsData = [
+    {
+      id: "1",
+      nombre: "Ricardo",
+      apellido: "Zambrano",
+      documento: "1234567890",
+      tipoDocumento: "CC",
+      tipoDocente: "Planta :(",
+      ultimoTitulo: "Magister en ser genial",
+      nombreUsuario: "rzambrano",
+      correoInstitucional: "rzambrano@unicauca.edu.co",
+    },
+    {
+      id: "2",
+      nombre: "Francisco",
+      apellido: "Obando",
+      documento: "1234567890",
+      tipoDocumento: "CC",
+      tipoDocente: "Planta",
+      ultimoTitulo: "Magister",
+      nombreUsuario: "fobando",
+      correoInstitucional: "fobando@unicauca.edu.co",
+    },
+    {
+      id: "2",
+      nombre: "Daniel",
+      apellido: "Paz",
+      documento: "1234567890",
+      tipoDocumento: "CC",
+      tipoDocente: "Planta",
+      ultimoTitulo: "Magister",
+      nombreUsuario: "dpaz",
+      correoInstitucional: "dpaz@unicauca.edu.co",
+    },
+  ];
 
   return (
     <div className={Style.page_container}>
@@ -88,72 +125,20 @@ function App() {
             />
           </div>
           <div className={Style.main_content}>
-            <ProfessorCard
-              nombre={"Melissa"}
-              apellido={"Gugu"}
-              documento={"1100000000"}
-              tipoDocumento={"CC"}
-              tipoDocente={"Planta"}
-              ultimoTitulo={"Doctorado"}
-              id={"001"}
-              nombreUsuario={"mgu"}
-              correoInstitucional={"mgo@unicauca.edu.co"}
-            />
-            <ProfessorCard
-              nombre={"Melissa"}
-              apellido={"Gugu"}
-              documento={"1100000000"}
-              tipoDocumento={"CC"}
-              tipoDocente={"Planta"}
-              ultimoTitulo={"Doctorado"}
-              id={"001"}
-              nombreUsuario={"mgu"}
-              correoInstitucional={"mgo@unicauca.edu.co"}
-            />
-            <ProfessorCard
-              nombre={"Melissa"}
-              apellido={"Gugu"}
-              documento={"1100000000"}
-              tipoDocumento={"CC"}
-              tipoDocente={"Planta"}
-              ultimoTitulo={"Doctorado"}
-              id={"001"}
-              nombreUsuario={"mgu"}
-              correoInstitucional={"mgo@unicauca.edu.co"}
-            />
-            <ProfessorCard
-              nombre={"Melissa"}
-              apellido={"Gugu"}
-              documento={"1100000000"}
-              tipoDocumento={"CC"}
-              tipoDocente={"Planta"}
-              ultimoTitulo={"Doctorado"}
-              id={"001"}
-              nombreUsuario={"mgu"}
-              correoInstitucional={"mgo@unicauca.edu.co"}
-            />
-            <ProfessorCard
-              nombre={"Melissa"}
-              apellido={"Gugu"}
-              documento={"1100000000"}
-              tipoDocumento={"CC"}
-              tipoDocente={"Planta"}
-              ultimoTitulo={"Doctorado"}
-              id={"001"}
-              nombreUsuario={"mgu"}
-              correoInstitucional={"mgo@unicauca.edu.co"}
-            />
-            <ProfessorCard
-              nombre={"Melissa"}
-              apellido={"Gugu"}
-              documento={"1100000000"}
-              tipoDocumento={"CC"}
-              tipoDocente={"Planta"}
-              ultimoTitulo={"Doctorado"}
-              id={"001"}
-              nombreUsuario={"mgu"}
-              correoInstitucional={"mgo@unicauca.edu.co"}
-            />
+            {professorsData.map((professor) => (
+              <ProfessorCard
+                key={professor.id}
+                id={professor.id}
+                nombre={professor.nombre}
+                apellido={professor.apellido}
+                documento={professor.documento}
+                tipoDocumento={professor.tipoDocumento}
+                tipoDocente={professor.tipoDocente}
+                ultimoTitulo={professor.ultimoTitulo}
+                nombreUsuario={professor.nombreUsuario}
+                correoInstitucional={professor.correoInstitucional}
+              />
+            ))}
           </div>
         </main>
       </div>
