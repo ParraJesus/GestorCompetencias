@@ -14,7 +14,7 @@ const SemesterCard = ({ semesterData }) => {
       {!isExpanded && (
         <>
           <div className="closed_section_container">
-            <h2>Semestre {semesterData.semestre}</h2>
+            <h2>Semestre {semesterData.SEMESTRE}</h2>
           </div>
           <div className="closed_section_container">
             <Chevron
@@ -30,7 +30,7 @@ const SemesterCard = ({ semesterData }) => {
         <>
           <div className="asignature_data_container">
             <div className="asignature_headerdata_container">
-              <h2>Semestre {semesterData.semestre}</h2>
+              <h2>Semestre {semesterData.SEMESTRE}</h2>
             </div>
             <div className="asignature_headerdata_container">
               <Chevron
@@ -42,8 +42,17 @@ const SemesterCard = ({ semesterData }) => {
             </div>
           </div>
           <div className="semester_data_container">
-            {semesterData.asignaturas.map((asignatura) => (
-              <AsignatureCard key={asignatura.id} {...asignatura} />
+            {semesterData.ASIGNATURAS.map((asignatura, index) => (
+              <AsignatureCard
+                key={index}
+                id={asignatura.AP_ID}
+                nombre={asignatura.AP_NOMBRE}
+                descripcion={asignatura.AP_DESCRIPCION}
+                creditos={asignatura.AP_CREDITOS}
+                horas_semana={asignatura.AP_HORAS_SEMANA}
+                modalidad={asignatura.AP_MODALIDAD}
+                tipo_materia={asignatura.AP_TIPO_MATERIA}
+              />
             ))}
           </div>
         </>

@@ -1,218 +1,54 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+
 import Style from "../stylesheets/UserPageTemplate.module.css";
+
 import ProgramTitleCard from "../components/ProgramTitleCard.jsx";
 import SemesterCard from "../components/SemesterCard.jsx";
 
 function App() {
-  const programData = [
-    {
-      semestre: "1",
-      asignaturas: [
-        {
-          id: "001",
-          nombre: "Cálculo 1",
-          descripcion:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequatLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-          creditos: "4",
-          semestre: "1",
-          horas_semana: "4",
-          modalidad: "Presencial",
-          tipo_materia: "Teórica",
-        },
-        {
-          id: "002",
-          nombre: "Introducción a la informática",
-          descripcion:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequatLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-          creditos: "4",
-          semestre: "1",
-          horas_semana: "4",
-          modalidad: "Presencial",
-          tipo_materia: "Teórica",
-        },
-      ],
-    },
-    {
-      semestre: "2",
-      asignaturas: [
-        {
-          id: "003",
-          nombre: "Cálculo 2",
-          descripcion:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequatLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-          creditos: "4",
-          semestre: "1",
-          horas_semana: "4",
-          modalidad: "Presencial",
-          tipo_materia: "Teórica",
-        },
-        {
-          id: "004",
-          nombre: "Programación orientada a objetos",
-          descripcion:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequatLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-          creditos: "4",
-          semestre: "1",
-          horas_semana: "4",
-          modalidad: "Presencial",
-          tipo_materia: "Teórica",
-        },
-      ],
-    },
-    {
-      semestre: "3",
-      asignaturas: [
-        {
-          id: "005",
-          nombre: "Cálculo 3",
-          descripcion:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequatLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-          creditos: "4",
-          semestre: "1",
-          horas_semana: "4",
-          modalidad: "Presencial",
-          tipo_materia: "Teórica",
-        },
-        {
-          id: "006",
-          nombre: "Estructura de Datos I",
-          descripcion:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequatLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-          creditos: "4",
-          semestre: "1",
-          horas_semana: "4",
-          modalidad: "Presencial",
-          tipo_materia: "Teórica",
-        },
-        {
-          id: "007",
-          nombre: "Electromagnetismo",
-          descripcion:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequatLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-          creditos: "4",
-          semestre: "1",
-          horas_semana: "4",
-          modalidad: "Presencial",
-          tipo_materia: "Teórica",
-        },
-        {
-          id: "006",
-          nombre: "Estructura de Datos I",
-          descripcion:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequatLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-          creditos: "4",
-          semestre: "1",
-          horas_semana: "4",
-          modalidad: "Presencial",
-          tipo_materia: "Teórica",
-        },
-        {
-          id: "006",
-          nombre: "Estructura de Datos I",
-          descripcion:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequatLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-          creditos: "4",
-          semestre: "1",
-          horas_semana: "4",
-          modalidad: "Presencial",
-          tipo_materia: "Teórica",
-        },
-      ],
-    },
-    {
-      semestre: "4",
-      asignaturas: [
-        {
-          id: "005",
-          nombre: "Cálculo 3",
-          descripcion:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequatLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-          creditos: "4",
-          semestre: "1",
-          horas_semana: "4",
-          modalidad: "Presencial",
-          tipo_materia: "Teórica",
-        },
-        {
-          id: "006",
-          nombre: "Estructura de Datos I",
-          descripcion:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequatLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-          creditos: "4",
-          semestre: "1",
-          horas_semana: "4",
-          modalidad: "Presencial",
-          tipo_materia: "Teórica",
-        },
-        {
-          id: "007",
-          nombre: "Electromagnetismo",
-          descripcion:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequatLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-          creditos: "4",
-          semestre: "1",
-          horas_semana: "4",
-          modalidad: "Presencial",
-          tipo_materia: "Teórica",
-        },
-      ],
-    },
-    {
-      semestre: "5",
-      asignaturas: [
-        {
-          id: "005",
-          nombre: "Cálculo 3",
-          descripcion:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequatLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-          creditos: "4",
-          semestre: "1",
-          horas_semana: "4",
-          modalidad: "Presencial",
-          tipo_materia: "Teórica",
-        },
-        {
-          id: "006",
-          nombre: "Estructura de Datos I",
-          descripcion:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequatLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-          creditos: "4",
-          semestre: "1",
-          horas_semana: "4",
-          modalidad: "Presencial",
-          tipo_materia: "Teórica",
-        },
-        {
-          id: "007",
-          nombre: "Electromagnetismo",
-          descripcion:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequatLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-          creditos: "4",
-          semestre: "1",
-          horas_semana: "4",
-          modalidad: "Presencial",
-          tipo_materia: "Teórica",
-        },
-      ],
-    },
-  ];
+  const { id } = useParams();
+  const [programData, setProgramData] = useState([]);
+
+  useEffect(() => {
+    fetch(`http://localhost:5000/programas/${id}`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Error al obtener los datos del programa ${id}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setProgramData(data);
+      })
+      .catch((error) => {
+        console.error("Error al hacer la solicitud:", error);
+      });
+  }, [id]);
+
+  if (programData.length === 0) {
+    return <div>Cargando...</div>;
+  }
 
   return (
     <main className={Style.main}>
       <div className={Style.main_header}>
         <ProgramTitleCard
-          enlace={"/"}
-          nombre={"Ingeniería de Sistemas"}
-          id={"001"}
-          modalidad={"Presencial"}
-          tipoPrograma={"Pregrado"}
-          facultad={"Ingeniería Electrónica y Telecomunicaciones"}
+          enlace={"/coordinador/programas/"}
+          nombre={programData[0].NOMBRE}
+          id={programData[0].PROGRAMA_ID}
+          modalidad={programData[0].MODALIDAD}
+          tipoPrograma={programData[0].TIPO_PROGRAMA}
+          facultad={programData[0].FACULTAD}
         />
       </div>
       <div className={Style.main_content}>
-        {programData.map((semester) => (
-          <SemesterCard key={semester.semestre} semesterData={semester} />
-        ))}
+        {programData[0].SEMESTRES.map((semestre, index) => {
+          if (semestre.ASIGNATURAS && semestre.ASIGNATURAS.length > 0) {
+            return <SemesterCard key={index} semesterData={semestre} />;
+          }
+          return null;
+        })}
       </div>
     </main>
   );

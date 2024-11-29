@@ -3,6 +3,16 @@
 /*	OBTENER	*/
 
 DELIMITER //
+CREATE PROCEDURE Programa_Obtener(
+	IN p_id INT
+)
+BEGIN
+    SELECT * FROM programa
+    WHERE PROGRAMA_ID = p_id;
+END //
+DELIMITER ;
+
+DELIMITER //
 CREATE PROCEDURE Programa_ObtenerOrdenados()
 BEGIN
     SELECT * FROM programa

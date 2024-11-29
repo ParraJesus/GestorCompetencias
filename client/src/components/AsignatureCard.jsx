@@ -7,7 +7,6 @@ const AsignatureCard = ({
   nombre,
   descripcion,
   creditos,
-  semestre,
   horas_semana,
   modalidad,
   tipo_materia,

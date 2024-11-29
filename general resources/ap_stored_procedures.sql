@@ -23,6 +23,70 @@ BEGIN
 END //
 DELIMITER ;
 
+
+DELIMITER //
+CREATE PROCEDURE AP_ObtenerPorPrograma(
+    IN programa_id INT
+)
+BEGIN
+    SELECT 
+        p.PROGRAMA_ID, 
+        p.NOMBRE, 
+        p.MODALIDAD, 
+        p.TIPO_PROGRAMA, 
+        p.FACULTAD,
+        JSON_ARRAYAGG(
+            JSON_OBJECT(
+                'SEMESTRE', a.SEMESTRE,
+                'ASIGNATURAS', (
+                    SELECT JSON_ARRAYAGG(
+                        JSON_OBJECT(
+                            'AP_ID', ap.AP_ID,
+                            'AP_ESTADO', ap.ESTADO,
+                            'AP_NOMBRE', ap.NOMBRE,
+                            'AP_CREDITOS', ap.CREDITOS,
+                            'AP_SEMESTRE', ap.SEMESTRE,
+                            'AP_MODALIDAD', ap.MODALIDAD,
+                            'AP_DESCRIPCION', ap.DESCRIPCION,
+                            'AP_HORAS_SEMANA', ap.HORAS_SEMANA,
+                            'AP_TIPO_MATERIA', ap.TIPO_MATERIA
+                        )
+                    )
+                    FROM ASIGNATURA_PLANTILLA ap
+                    WHERE ap.PROGRAMA_ID = p.PROGRAMA_ID
+                    AND ap.SEMESTRE = a.SEMESTRE
+                )
+            )
+        ) AS SEMESTRES
+    FROM 
+        programa p
+    LEFT JOIN 
+        (SELECT DISTINCT SEMESTRE, PROGRAMA_ID 
+         FROM ASIGNATURA_PLANTILLA 
+         WHERE PROGRAMA_ID = programa_id
+         AND EXISTS (
+             SELECT 1
+             FROM ASIGNATURA_PLANTILLA ap
+             WHERE ap.PROGRAMA_ID = programa_id
+             AND ap.SEMESTRE = SEMESTRE
+         )
+        ) a 
+    ON a.PROGRAMA_ID = p.PROGRAMA_ID
+    WHERE 
+        p.PROGRAMA_ID = programa_id
+    GROUP BY 
+        p.PROGRAMA_ID;
+END//
+
+DELIMITER ;
+
+
+
+
+
+
+
+
 /*	CREAR	*/
 
 DELIMITER //

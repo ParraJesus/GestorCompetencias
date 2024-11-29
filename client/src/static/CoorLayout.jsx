@@ -16,6 +16,7 @@ const routeTitles = {
   "/coordinador/profesores": "Gestión de Profesores",
   "/coordinador/evaluadores": "Gestión de Evaluadores",
   "/coordinador/programas": "Gestión de Programas",
+  "/coordinador/programas/:id": "Gestión",
   "/coordinador/matriculas": "Gestión de Matrículas",
 };
 
@@ -56,7 +57,7 @@ const App = () => {
       texto: "Programas",
       icono: ProgramIcon,
       expandedItems: [
-        { texto: "Crear Programa", enlace: "/coordinador/programas" },
+        { texto: "Listar Programas", enlace: "/coordinador/programas" },
       ],
     },
     {
@@ -71,7 +72,6 @@ const App = () => {
   return (
     <div className={Style.page_container}>
       <Header titulo={headerTitulo} isExpanded={isSideMenuExpanded} />{" "}
-      {/*El título debe cambiar */}
       <div className={Style.main_container}>
         <SideMenu
           menuData={sideMenuData}

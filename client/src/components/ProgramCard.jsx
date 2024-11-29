@@ -1,18 +1,9 @@
 import React, { useState } from "react";
-import "../stylesheets/UserCard.css";
-import { ReactComponent as Chevron } from "../assets/bx-chevron-down.svg";
+import { useNavigate } from "react-router-dom";
 
-/*
-<ProgramCard
-  nombre={"Ingeniería de Sistemas"}
-  id={"001"}
-  modalidad={"Presencial"}
-  tipoPrograma={"Pregrado"}
-  facultad={"Ingeniería Electrónica y Telecomunicaciones"}
-  titulo={"Título en Ingeniero de Sistemas de la Información"}
-  cantidadSemestres={"10"}
-/>
-*/
+import "../stylesheets/UserCard.css";
+
+import { ReactComponent as Chevron } from "../assets/bx-chevron-down.svg";
 
 const ProgramCard = ({
   id,
@@ -24,6 +15,11 @@ const ProgramCard = ({
   cantidadSemestres,
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
+
+  const navigate = useNavigate();
+  const handlePlanDeEstudios = () => {
+    navigate(`/coordinador/programas/${id}`);
+  };
 
   return (
     <div
@@ -76,7 +72,9 @@ const ProgramCard = ({
             </div>
           </div>
           <div className="expandableCard_button_container">
-            <button className="button-second">Plan de estudios</button>
+            <button className="button-second" onClick={handlePlanDeEstudios}>
+              Plan de estudios
+            </button>
             <button className="button-second">Editar</button>
             <button className="button-first">Deshabilitar</button>
           </div>

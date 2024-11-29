@@ -42,6 +42,10 @@ function App() {
       });
   }, []);
 
+  if (programsData.length === 0) {
+    return <div>Cargando...</div>;
+  }
+
   return (
     <main className={Style.main}>
       <div className={Style.main_header}>
