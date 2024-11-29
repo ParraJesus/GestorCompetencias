@@ -1,57 +1,9 @@
 import React, { useState } from "react";
 import Style from "../stylesheets/UserPageTemplate.module.css";
-import Header from "../components/Header.jsx";
-import SideMenu from "../components/SideMenu.jsx";
 import ProgramTitleCard from "../components/ProgramTitleCard.jsx";
 import SemesterCard from "../components/SemesterCard.jsx";
 
-import { ReactComponent as ProfessorIcon } from "../assets/bxs-professor.svg";
-import { ReactComponent as StudentIcon } from "../assets/bxs-student.svg";
-import { ReactComponent as EvaluatorIcon } from "../assets/bxs-evaluator.svg";
-import { ReactComponent as ProgramIcon } from "../assets/bxs-program.svg";
-import { ReactComponent as MatriculeIcon } from "../assets/bxs-matricule.svg";
-
 function App() {
-  const [isSideMenuExpanded, setSideMenuExpanded] = useState(false);
-
-  const handleExpandedChange = (value) => {
-    setSideMenuExpanded(value);
-  };
-
-  const sideMenuData = [
-    {
-      texto: "Profesores",
-      icono: ProfessorIcon,
-      expandedItems: [
-        { texto: "Crear Profesor", enlace: "/" },
-        { texto: "Listar Profesores", enlace: "/" },
-      ],
-    },
-    {
-      texto: "Estudiantes",
-      icono: StudentIcon,
-      expandedItems: [
-        { texto: "Crear Estudiante", enlace: "/" },
-        { texto: "Listar Estudiantes", enlace: "/" },
-      ],
-    },
-    {
-      texto: "Evaluadores",
-      icono: EvaluatorIcon,
-      expandedItems: [{ texto: "Asignar Evaluador", enlace: "/" }],
-    },
-    {
-      texto: "Programas",
-      icono: ProgramIcon,
-      expandedItems: [{ texto: "Crear Programa", enlace: "/" }],
-    },
-    {
-      texto: "Matrículas",
-      icono: MatriculeIcon,
-      expandedItems: [{ texto: "Registrar Matrícula", enlace: "/" }],
-    },
-  ];
-
   const programData = [
     {
       semestre: "1",
@@ -246,32 +198,23 @@ function App() {
   ];
 
   return (
-    <div className={Style.page_container}>
-      <Header titulo={"Plan de estudios"} isExpanded={isSideMenuExpanded} />
-      <div className={Style.main_container}>
-        <SideMenu
-          menuData={sideMenuData}
-          onExpandedChange={handleExpandedChange}
+    <main className={Style.main}>
+      <div className={Style.main_header}>
+        <ProgramTitleCard
+          enlace={"/"}
+          nombre={"Ingeniería de Sistemas"}
+          id={"001"}
+          modalidad={"Presencial"}
+          tipoPrograma={"Pregrado"}
+          facultad={"Ingeniería Electrónica y Telecomunicaciones"}
         />
-        <main className={Style.main}>
-          <div className={Style.main_header}>
-            <ProgramTitleCard
-              enlace={"/"}
-              nombre={"Ingeniería de Sistemas"}
-              id={"001"}
-              modalidad={"Presencial"}
-              tipoPrograma={"Pregrado"}
-              facultad={"Ingeniería Electrónica y Telecomunicaciones"}
-            />
-          </div>
-          <div className={Style.main_content}>
-            {programData.map((semester) => (
-              <SemesterCard key={semester.semestre} semesterData={semester} />
-            ))}
-          </div>
-        </main>
       </div>
-    </div>
+      <div className={Style.main_content}>
+        {programData.map((semester) => (
+          <SemesterCard key={semester.semestre} semesterData={semester} />
+        ))}
+      </div>
+    </main>
   );
 }
 

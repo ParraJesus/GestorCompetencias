@@ -65,6 +65,17 @@ END //
 DELIMITER ;
 
 DELIMITER //
+CREATE PROCEDURE Profesor_ObtenerUnicoPorID(
+	IN p_id INT
+)
+BEGIN
+    SELECT * FROM PROFESOR
+    WHERE PROF_ID = p_id
+    ORDER BY ESTADO DESC;
+END //
+DELIMITER ;
+
+DELIMITER //
 CREATE PROCEDURE Profesor_ObtenerPorDocumento(
 	IN p_doc VARCHAR(255)
 )

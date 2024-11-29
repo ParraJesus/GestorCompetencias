@@ -2,6 +2,8 @@ import React from "react";
 import Style from "../stylesheets/LoginPage.module.css";
 
 const App = () => {
+  const handleLogin = () => {};
+
   return (
     <div className={Style.page_container}>
       <div className={Style.image_container}></div>
@@ -32,7 +34,9 @@ const App = () => {
               className={Style.login_input}
             />
           </div>
-          <button className={Style.login_button}>Ingresar</button>
+          <button className={Style.login_button} onClick={handleLogin}>
+            Ingresar
+          </button>
         </div>
       </div>
     </div>

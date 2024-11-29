@@ -14,46 +14,6 @@ import { ReactComponent as ProgramIcon } from "../assets/bxs-program.svg";
 import { ReactComponent as MatriculeIcon } from "../assets/bxs-matricule.svg";
 
 function App() {
-  const [isSideMenuExpanded, setSideMenuExpanded] = useState(false);
-
-  const handleExpandedChange = (value) => {
-    setSideMenuExpanded(value);
-  };
-
-  const sideMenuData = [
-    {
-      texto: "Profesores",
-      icono: ProfessorIcon,
-      expandedItems: [
-        { texto: "Crear Profesor", enlace: "/" },
-        { texto: "Listar Profesores", enlace: "/" },
-      ],
-    },
-    {
-      texto: "Estudiantes",
-      icono: StudentIcon,
-      expandedItems: [
-        { texto: "Crear Estudiante", enlace: "/" },
-        { texto: "Listar Estudiantes", enlace: "/" },
-      ],
-    },
-    {
-      texto: "Evaluadores",
-      icono: EvaluatorIcon,
-      expandedItems: [{ texto: "Asignar Evaluador", enlace: "/" }],
-    },
-    {
-      texto: "Programas",
-      icono: ProgramIcon,
-      expandedItems: [{ texto: "Crear Programa", enlace: "/" }],
-    },
-    {
-      texto: "Matrículas",
-      icono: MatriculeIcon,
-      expandedItems: [{ texto: "Registrar Matrícula", enlace: "/" }],
-    },
-  ];
-
   const [currentFilter, setCurrentFilter] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -147,45 +107,30 @@ function App() {
   ];
 
   return (
-    <div className={Style.page_container}>
-      <Header
-        titulo={"Gestión de Competencias"}
-        isExpanded={isSideMenuExpanded}
-      />
-      <div className={Style.main_container}>
-        <SideMenu
-          menuData={sideMenuData}
-          onExpandedChange={handleExpandedChange}
-        />
-        <main className={`${Style.main} ${Style.main_two_columns}`}>
-          <div className={Style.main_column}>
-            <div className={Style.main_header}>
-              <AsignatureTitleCard nombre={"Cálculo 1"} id={"001"} />
-            </div>
-            <div className={Style.main_content}></div>
-          </div>
-          <div className={Style.main_column}>
-            <div className={Style.main_header}>
-              <TitleCard titulo={"Competencias de Programa"} />
-              <SearchBar
-                placeholdertext={"Buscar competencia..."}
-                filters={filtersForCompetences}
-                onFilterChange={handleFilterChange}
-                onSearchChange={handleSearchChange}
-              />
-            </div>
-            <div className={Style.main_content}>
-              {competencesData.map((competence) => (
-                <CompetenceCard
-                  key={competence.id}
-                  competenceData={competence}
-                />
-              ))}
-            </div>
-          </div>
-        </main>
+    <main className={`${Style.main} ${Style.main_two_columns}`}>
+      <div className={Style.main_column}>
+        <div className={Style.main_header}>
+          <AsignatureTitleCard nombre={"Cálculo 1"} id={"001"} />
+        </div>
+        <div className={Style.main_content}></div>
       </div>
-    </div>
+      <div className={Style.main_column}>
+        <div className={Style.main_header}>
+          <TitleCard titulo={"Competencias de Programa"} />
+          <SearchBar
+            placeholdertext={"Buscar competencia..."}
+            filters={filtersForCompetences}
+            onFilterChange={handleFilterChange}
+            onSearchChange={handleSearchChange}
+          />
+        </div>
+        <div className={Style.main_content}>
+          {competencesData.map((competence) => (
+            <CompetenceCard key={competence.id} competenceData={competence} />
+          ))}
+        </div>
+      </div>
+    </main>
   );
 }
 
