@@ -4,10 +4,11 @@ import ProfessorCard from "../components/ProfessorCard";
 import SearchBar from "../components/SearchBar";
 
 function App() {
-  const [currentFilter, setCurrentFilter] = useState("");
+  const [currentFilter, setCurrentFilter] = useState();
   const [searchQuery, setSearchQuery] = useState("");
 
   const filtersForProfessors = [
+    { label: "Todos", value: "none" },
     { label: "Nombre", value: "nombre" },
     { label: "Apellido", value: "apellido" },
     { label: "ID", value: "id" },

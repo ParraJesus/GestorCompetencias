@@ -22,6 +22,8 @@ const profesorRoutes = require("./routes/profesorRoutes.js");
 const estudianteRoutes = require("./routes/estudianteRoutes.js");
 const evaluadorRoutes = require("./routes/evaluadorRoutes.js");
 
+const programaRoutes = require("./routes/programRoutes.js");
+
 const app = express();
 
 // settings
@@ -37,5 +39,6 @@ app.use(userRoutes);
 app.use("/profesores", profesorRoutes);
 app.use("/estudiantes", estudianteRoutes);
 app.use("/evaluadores", evaluadorRoutes);
+app.use("/programas", programaRoutes);
 
 module.exports = app;

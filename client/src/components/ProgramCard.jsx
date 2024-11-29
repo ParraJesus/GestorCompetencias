@@ -62,7 +62,7 @@ const ProgramCard = ({
                 <p className="texto-mayor">#{id}</p>
                 <p className="texto-mayor">{tipoPrograma}</p>
                 <p className="texto-mayor">{facultad}</p>
-                <p className="texto-mayor">{titulo}</p>
+                <p className="texto-mayor">Título en {titulo}</p>
                 <p className="texto-mayor">{cantidadSemestres} semestres</p>
               </div>
             </div>
@@ -76,9 +76,9 @@ const ProgramCard = ({
             </div>
           </div>
           <div className="expandableCard_button_container">
-            <button>Plan de estudios</button>
-            <button>Editar</button>
-            <button>Deshabilitar</button>
+            <button className="button-second">Plan de estudios</button>
+            <button className="button-second">Editar</button>
+            <button className="button-first">Deshabilitar</button>
           </div>
         </>
       )}
