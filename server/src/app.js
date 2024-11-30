@@ -23,8 +23,11 @@ const estudianteRoutes = require("./routes/estudianteRoutes.js");
 const evaluadorRoutes = require("./routes/evaluadorRoutes.js");
 
 const programaRoutes = require("./routes/programRoutes.js");
+const matriculaRoutes = require("./routes/matriculaRoutes.js");
+const asignaturaRoutes = require("./routes/asig_semestreRoutes.js");
 
 const app = express();
+
 
 // settings
 app.set("appName", "CREA server");
@@ -40,5 +43,8 @@ app.use("/profesores", profesorRoutes);
 app.use("/estudiantes", estudianteRoutes);
 app.use("/evaluadores", evaluadorRoutes);
 app.use("/programas", programaRoutes);
+app.use("/asignaturas", asignaturaRoutes);
+
+app.use("/matriculas", matriculaRoutes);
 
 module.exports = app;
