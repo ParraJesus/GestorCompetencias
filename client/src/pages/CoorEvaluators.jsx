@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
+
 import Style from "../stylesheets/UserPageTemplate.module.css";
+
 import EvaluatorCard from "../components/EvaluatorCard.jsx";
 import SearchBar from "../components/SearchBar";
 
@@ -25,23 +28,28 @@ function App() {
   const [evaluatorsData, setEvaluatorsData] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/evaluadores")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Error al obtener los evaluadores");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setEvaluatorsData(data);
-      })
-      .catch((error) => {
+    const fetchItems = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/evaluadores");
+        setEvaluatorsData(response.data);
+      } catch (error) {
         console.error("Error al hacer la solicitud:", error);
-      });
+      }
+    };
+    fetchItems();
   }, []);
 
   if (evaluatorsData.length === 0) {
-    return <div>Cargando...</div>;
+    return (
+      <div className={Style.main}>
+        <div className={Style.main_header}>
+          <div className="paragraph">
+            Si puedes leer esto, revisa tu conexión...
+          </div>
+        </div>
+        <div className={Style.main_content}></div>
+      </div>
+    );
   }
 
   return (

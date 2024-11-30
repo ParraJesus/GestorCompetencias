@@ -1,8 +1,52 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 import Style from "../stylesheets/LoginPage.module.css";
 
 const App = () => {
-  const handleLogin = () => {};
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
+
+  const handleLogin = async () => {
+    try {
+      const response = await axios.post("http://localhost:5000/login", {
+        usuario: username,
+        contrasena: password,
+      });
+
+      const { token, tipo_usuario } = response.data;
+
+      localStorage.setItem("token", token);
+      console.log("Token guardado:", localStorage.getItem("token"));
+
+      switch (tipo_usuario) {
+        case "coordinador":
+          navigate("/coordinador/profesores");
+          break;
+        case "estudiante":
+          navigate("/estudiante/programas");
+          break;
+        case "profesor":
+          navigate("/profesor/periodos");
+          break;
+        case "evaluador":
+          navigate("/evaluador/periodos");
+          break;
+        default:
+          setErrorMessage("Rol desconocido");
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        setErrorMessage("Usuario o contraseña incorrectos");
+      } else {
+        setErrorMessage("Hubo un error en la conexión. Intenta nuevamente.");
+      }
+      console.error(error);
+    }
+  };
 
   return (
     <div className={Style.page_container}>
@@ -20,6 +64,8 @@ const App = () => {
               type={"text"}
               placeholder="Ingresar nombre de usuario"
               className={Style.login_input}
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
             />
           </div>
           <div className={Style.login_input_container}>
@@ -32,8 +78,11 @@ const App = () => {
               type={"password"}
               placeholder="Ingresar contraseña"
               className={Style.login_input}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
+          <p className="texto-menor text-red">{errorMessage}</p>
           <button className={Style.login_button} onClick={handleLogin}>
             Ingresar
           </button>

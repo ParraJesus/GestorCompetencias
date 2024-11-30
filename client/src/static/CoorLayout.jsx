@@ -37,6 +37,7 @@ const App = () => {
       icono: ProfessorIcon,
       expandedItems: [
         { texto: "Listar Profesores", enlace: "/coordinador/profesores" },
+        { texto: "Crear Profesor", enlace: "/coordinador/profesores" },
       ],
     },
     {

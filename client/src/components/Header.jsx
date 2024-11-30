@@ -1,9 +1,11 @@
 import React from "react";
 import Style from "../stylesheets/Header.module.css";
-import { ReactComponent as CogIcon } from "../assets/bxs-cog.svg";
+import { ReactComponent as Logo } from "../assets/Logo.svg";
 import { ReactComponent as UserIcon } from "../assets/bxs-user-circle.svg";
 
 const Header = ({ titulo, isExpanded }) => {
+  const handleLogout = () => {};
+
   return (
     <header className={Style.header}>
       <div className={Style.logo}>
@@ -12,11 +14,11 @@ const Header = ({ titulo, isExpanded }) => {
             isExpanded ? `${Style.expanded}` : ""
           }`.trimEnd()}
         ></div>
-        <CogIcon className="small-icon" />
+        <Logo className="small-icon" />
         <h1>CREA</h1>
       </div>
       <h1>{titulo}</h1>
-      <UserIcon className="small-icon" />
+      <UserIcon className="small-icon logOut" onClick={handleLogout}></UserIcon>
     </header>
   );
 };

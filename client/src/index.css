@@ -125,3 +125,11 @@ button {
 button:hover {
   opacity: 80%;
 }
+
+.text-red {
+  color: #f00;
+}
+
+.logOut {
+  cursor: pointer;
+}

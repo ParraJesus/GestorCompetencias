@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import axios from "axios";
 
 import Style from "../stylesheets/UserPageTemplate.module.css";
 
@@ -11,23 +12,30 @@ function App() {
   const [programData, setProgramData] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/programas/${id}`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`Error al obtener los datos del programa ${id}`);
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setProgramData(data);
-      })
-      .catch((error) => {
+    const fetchItems = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:5000/programas/${id}`
+        );
+        setProgramData(response.data);
+      } catch (error) {
         console.error("Error al hacer la solicitud:", error);
-      });
+      }
+    };
+    fetchItems();
   }, [id]);
 
   if (programData.length === 0) {
-    return <div>Cargando...</div>;
+    return (
+      <div className={Style.main}>
+        <div className={Style.main_header}>
+          <div className="paragraph">
+            Si puedes leer esto, revisa tu conexión...
+          </div>
+        </div>
+        <div className={Style.main_content}></div>
+      </div>
+    );
   }
 
   return (

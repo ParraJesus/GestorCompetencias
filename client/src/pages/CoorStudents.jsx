@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
+
 import Style from "../stylesheets/UserPageTemplate.module.css";
+
 import StudentCard from "../components/StudentCard.jsx";
 import SearchBar from "../components/SearchBar";
 
@@ -26,20 +29,29 @@ function App() {
   const [studentsData, setStudentsData] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/estudiantes")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Error al obtener los estudiantes");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setStudentsData(data);
-      })
-      .catch((error) => {
+    const fetchItems = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/estudiantes");
+        setStudentsData(response.data);
+      } catch (error) {
         console.error("Error al hacer la solicitud:", error);
-      });
+      }
+    };
+    fetchItems();
   }, []);
+
+  if (studentsData.length === 0) {
+    return (
+      <div className={Style.main}>
+        <div className={Style.main_header}>
+          <div className="paragraph">
+            Si puedes leer esto, revisa tu conexión...
+          </div>
+        </div>
+        <div className={Style.main_content}></div>
+      </div>
+    );
+  }
 
   return (
     <main className={Style.main}>

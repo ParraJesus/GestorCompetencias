@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 import ProgramCard from "../components/ProgramCard";
 import SearchBar from "../components/SearchBar";
@@ -27,23 +28,26 @@ function App() {
   const [programsData, setProgramsData] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/programas")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Error al obtener los programas");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setProgramsData(data);
-      })
-      .catch((error) => {
+    const fetchItems = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/programas");
+        setProgramsData(response.data);
+      } catch (error) {
         console.error("Error al hacer la solicitud:", error);
-      });
+      }
+    };
+    fetchItems();
   }, []);
 
   if (programsData.length === 0) {
-    return <div>Cargando...</div>;
+    return (
+      <div className={Style.main}>
+        <div className={Style.main_header}>
+          <div className="paragraph">Cargando...</div>
+        </div>
+        <div className={Style.main_content}></div>
+      </div>
+    );
   }
 
   return (
