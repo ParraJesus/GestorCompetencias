@@ -25,6 +25,7 @@ const evaluadorRoutes = require("./routes/evaluadorRoutes.js");
 const programaRoutes = require("./routes/programRoutes.js");
 const matriculaRoutes = require("./routes/matriculaRoutes.js");
 const asignaturaRoutes = require("./routes/asig_semestreRoutes.js");
+const asig_plantillaRoutes = require("./routes/asig_plantillaRoutes.js");
 
 const app = express();
 
@@ -44,6 +45,7 @@ app.use("/estudiantes", estudianteRoutes);
 app.use("/evaluadores", evaluadorRoutes);
 app.use("/programas", programaRoutes);
 app.use("/asignaturas", asignaturaRoutes);
+app.use("/asig_plantilla", asig_plantillaRoutes);
 
 app.use("/matriculas", matriculaRoutes);
 
