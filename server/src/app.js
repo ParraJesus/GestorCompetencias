@@ -1,21 +1,6 @@
-/*const express = require("express");
-const userRoutes = require("./routes/userRoutes.js");
-
-const app = express();
-
-// settings
-app.set("appName", "CREA server");
-app.set("port", 5000);
-
-//middleware
-app.use(express.json());
-app.use(userRoutes);
-
-module.exports = app;
-*/
-
 const express = require("express");
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
 const userRoutes = require("./routes/userRoutes.js");
 
 const profesorRoutes = require("./routes/profesorRoutes.js");
@@ -35,10 +20,16 @@ const app = express();
 // settings
 app.set("appName", "CREA server");
 app.set("port", 5000);
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
 
 // middleware
 app.use(express.json());
+app.use(cookieParser());
 
 // rutas
 app.use(userRoutes);

@@ -3,6 +3,7 @@ import StudentLayout from "./static/StudentLayout";
 import ProfessorLayout from "./static/ProfessorLayout";
 import EvaluatorLayout from "./static/EvaluatorLayout";
 
+import PrivateRoute from "./PrivateRouter";
 import CoorProfessors from "./pages/CoorProfessors";
 import CoorEvaluators from "./pages/CoorEvaluators";
 import CoorStudents from "./pages/CoorStudents";
@@ -18,7 +19,11 @@ export const routes = [
   },
   {
     path: "/coordinador",
-    element: <CoorLayout />,
+    element: (
+      <PrivateRoute allowedRoles={["coordinador"]}>
+        <CoorLayout />
+      </PrivateRoute>
+    ),
     children: [
       { path: "estudiantes", element: <CoorStudents /> },
       { path: "profesores", element: <CoorProfessors /> },
@@ -30,17 +35,29 @@ export const routes = [
   },
   {
     path: "/estudiante",
-    element: <StudentLayout />,
+    element: (
+      <PrivateRoute allowedRoles={["estudiante"]}>
+        <StudentLayout />
+      </PrivateRoute>
+    ),
     children: [{ path: "programas", element: <NotFound /> }],
   },
   {
     path: "/profesor",
-    element: <ProfessorLayout />,
+    element: (
+      <PrivateRoute allowedRoles={["profesor"]}>
+        <ProfessorLayout />
+      </PrivateRoute>
+    ),
     children: [{ path: "periodos", element: <NotFound /> }],
   },
   {
     path: "/evaluador",
-    element: <EvaluatorLayout />,
+    element: (
+      <PrivateRoute allowedRoles={["evaluador"]}>
+        <EvaluatorLayout />
+      </PrivateRoute>
+    ),
     children: [{ path: "periodos", element: <NotFound /> }],
   },
   {

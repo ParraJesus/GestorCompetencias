@@ -10,8 +10,9 @@ const App = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = async () => {
+  const handleLogin = async (e) => {
     try {
+      e.preventDefault();
       const response = await axios.post("http://localhost:5000/login", {
         usuario: username,
         contrasena: password,
@@ -19,8 +20,9 @@ const App = () => {
 
       const { token, tipo_usuario } = response.data;
 
-      localStorage.setItem("token", token);
-      console.log("Token guardado:", localStorage.getItem("token"));
+      if (response.data) {
+        localStorage.setItem("token", token);
+      }
 
       switch (tipo_usuario) {
         case "coordinador":
@@ -39,7 +41,9 @@ const App = () => {
           setErrorMessage("Rol desconocido");
       }
     } catch (error) {
-      if (error.response && error.response.status === 401) {
+      if (error.response.status === 400) {
+        setErrorMessage("Debes llenar los campos... ¡para eso están!");
+      } else if (error.response && error.response.status === 401) {
         setErrorMessage("Usuario o contraseña incorrectos");
       } else {
         setErrorMessage("Hubo un error en la conexión. Intenta nuevamente.");

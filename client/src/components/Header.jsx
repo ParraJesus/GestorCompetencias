@@ -4,8 +4,6 @@ import { ReactComponent as Logo } from "../assets/Logo.svg";
 import { ReactComponent as UserIcon } from "../assets/bxs-user-circle.svg";
 
 const Header = ({ titulo, isExpanded }) => {
-  const handleLogout = () => {};
-
   return (
     <header className={Style.header}>
       <div className={Style.logo}>
@@ -18,7 +16,7 @@ const Header = ({ titulo, isExpanded }) => {
         <h1>CREA</h1>
       </div>
       <h1>{titulo}</h1>
-      <UserIcon className="small-icon logOut" onClick={handleLogout}></UserIcon>
+      <UserIcon className="small-icon logOut" title="Cerrar Sesión"></UserIcon>
     </header>
   );
 };
