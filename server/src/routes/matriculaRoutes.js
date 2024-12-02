@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const db = require("../db");
 
+/*
 //CREAR
 router.post("/create", (req, res) => {
     const { as_id, estudiante_id, pmat_id } = req.body;
@@ -95,5 +96,23 @@ router.get("/:id", (req, res) => {
     );
 });
 
-module.exports = router;
+*/
 
+//LISTAR LOS DATOS DE UNA MATRÍCULA CON
+router.get("/detalles_as/:id_periodo/:id_programa", (req, res) => {
+  const { id_periodo, id_programa } = req.params;
+  db.query(
+    "CAll AS_ObtenerDetallesPorPeriodoYPrograma(?, ?)",
+    [id_periodo, id_programa],
+    (err, results) => {
+      if (err) {
+        console.error(err);
+        res.status(500).send("Error al obtener las matrículas");
+      } else {
+        res.status(200).json(results[0]);
+      }
+    }
+  );
+});
+
+module.exports = router;

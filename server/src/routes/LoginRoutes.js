@@ -24,7 +24,7 @@ router.post("/", (req, res) => {
       { usuario, tipo_usuario: data.tipo_usuario },
       "Stack",
       {
-        expiresIn: "15m",
+        expiresIn: "15d",
       }
     );
 

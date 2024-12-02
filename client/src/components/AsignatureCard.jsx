@@ -1,9 +1,13 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
+
 import "../stylesheets/UserCard.css";
+
 import { ReactComponent as Chevron } from "../assets/bx-chevron-down.svg";
 
 const AsignatureCard = ({
-  id,
+  id_asig,
   nombre,
   descripcion,
   creditos,
@@ -12,6 +16,13 @@ const AsignatureCard = ({
   tipo_materia,
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const navigate = useNavigate();
+  const { id } = useParams();
+  console.log(id);
+
+  const hadleCompetencias = () => {
+    navigate(`/coordinador/programas/${id}/${id_asig}`);
+  };
 
   return (
     <div
@@ -28,7 +39,7 @@ const AsignatureCard = ({
             <p className="texto-mayor">{creditos} créditos</p>
             <p className="texto-mayor">{horas_semana} horas por semana</p>
             <p className="texto-mayor">{modalidad}</p>
-            <p className="texto-mayor">#{id}</p>
+            <p className="texto-mayor">#{id_asig}</p>
             <Chevron
               className="small-icon selectable"
               onClick={() => {
@@ -48,7 +59,7 @@ const AsignatureCard = ({
               <p className="texto-mayor">{creditos} créditos</p>
               <p className="texto-mayor">{horas_semana} horas por semana</p>
               <p className="texto-mayor">{modalidad}</p>
-              <p className="texto-mayor">#{id}</p>
+              <p className="texto-mayor">#{id_asig}</p>
               <Chevron
                 className="small-icon selectable chevron-icon-up"
                 onClick={() => {
@@ -61,7 +72,9 @@ const AsignatureCard = ({
             <p className="paragraph">{descripcion}</p>
           </div>
           <div className="expandableCard_button_container">
-            <button className="button-second">Competencias</button>
+            <button className="button-second" onClick={hadleCompetencias}>
+              Competencias
+            </button>
             <button className="button-second">Editar</button>
             <button className="button-first">Deshabilitar</button>
           </div>

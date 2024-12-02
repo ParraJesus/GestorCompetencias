@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "../stylesheets/UserCard.css";
 import { ReactComponent as Chevron } from "../assets/bx-chevron-down.svg";
 
-const CompetenceCard = ({ competenceData }) => {
+const CompetenceCard = ({ competenceData, onClick, buttonText }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
@@ -15,7 +15,7 @@ const CompetenceCard = ({ competenceData }) => {
         <>
           <div className="closed_section_container">
             <h2>
-              #{competenceData.id} {competenceData.nombre}{" "}
+              #{competenceData.CP_ID} {competenceData.NOMBRE}{" "}
               {competenceData.ponderacion}
             </h2>
           </div>
@@ -34,8 +34,7 @@ const CompetenceCard = ({ competenceData }) => {
           <div className="asignature_data_container">
             <div className="asignature_headerdata_container">
               <h2>
-                #{competenceData.id} {competenceData.nombre}{" "}
-                {competenceData.ponderacion}
+                #{competenceData.CP_ID} {competenceData.NOMBRE}
               </h2>
             </div>
             <div className="asignature_headerdata_container">
@@ -48,22 +47,25 @@ const CompetenceCard = ({ competenceData }) => {
             </div>
           </div>
           <div className="competence_data_container">
-            <p className="paragraph">{competenceData.descripcion}</p>
+            <p className="paragraph">{competenceData.DESCRIPCION}</p>
             <p className="paragraph">
-              <strong>Nivel:</strong> {competenceData.nivel}
+              <strong>Nivel:</strong> {competenceData.NIVEL}
             </p>
             <ul className="paragraph">
-              {competenceData.RA.map((ra) => (
-                <li key={ra.id}>
+              {competenceData.RESULTADOS_APRENDIZAJE.map((ra, index) => (
+                <li key={index} className="paragraph">
                   <strong>
-                    Datos RA {ra.id} {ra.ponderacion}:
+                    Resultado de aprendiza de programa {ra.RAP_ID} (
+                    {ra.PONDERACION}%):
                   </strong>{" "}
-                  {ra.descripcion}
+                  {ra.DESCRIPCION}
                   <ul>
-                    {ra.RU.map((ru) => (
-                      <li key={ru.id}>
-                        <strong>Datos RU {ru.id}:</strong> {ru.descripcion} -{" "}
-                        <em>Ponderación:</em> {ru.ponderacion}
+                    {ra.RUBRICAS_EVALUACION.map((ru, index) => (
+                      <li key={index} className="paragraph">
+                        <strong>
+                          Rúbrica de evaluación {ru.RUP_ID} ({ru.PONDERACION}%):
+                        </strong>{" "}
+                        {ru.DESCRIPCION}
                       </li>
                     ))}
                   </ul>
@@ -72,7 +74,9 @@ const CompetenceCard = ({ competenceData }) => {
             </ul>
           </div>
           <div className="expandableCard_button_container">
-            <button className="button-second"> Agregar</button>
+            <button className="button-second" onClick={onClick}>
+              {buttonText}
+            </button>
             <button className="button-second">Editar</button>
             <button className="button-first">Deshabilitar</button>
           </div>

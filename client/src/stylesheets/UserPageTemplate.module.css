@@ -1,5 +1,6 @@
 .page_container {
   height: 100vh;
+  max-width: 1920px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -51,4 +52,18 @@
 .main_column .main_content {
   flex-grow: 1;
   overflow-y: hidden;
+}
+
+.main_grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(auto-fit, 150px);
+  gap: 5px;
+}
+
+.main_grid_two_rows {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(auto-fit, 260px);
+  gap: 5px;
 }

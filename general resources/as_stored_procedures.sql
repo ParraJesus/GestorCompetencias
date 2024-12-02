@@ -32,6 +32,48 @@ BEGIN
 END //
 DELIMITER ;
 
+DELIMITER $$
+CREATE PROCEDURE AS_ObtenerDetallesPorPeriodoYPrograma(
+    IN p_periodo_id INT,
+    IN p_programa_id INT
+)
+BEGIN
+    SELECT 
+        as_sem.NOMBRE AS NombreAsignatura,
+        as_sem.GRUPO AS Grupo,
+        as_sem.AS_ID AS ID_Asignatura,
+        prof.NOMBRE AS NombreProfesor,
+        prof.APELLIDO AS ApellidoProfesor,
+        prof.PROF_ID AS ID_Profesor,
+        eval_ext.NOMBRE AS NombreEvaluador,
+        eval_ext.APELLIDO AS ApellidoEvaluador,
+        eval_ext.EVALUADOR_ID AS ID_Evaluador,
+        COUNT(matr.ESTUDIANTE_ID) AS CantidadEstudiantes
+    FROM 
+        ASIGNATURA_SEMESTRE as_sem
+    INNER JOIN 
+        ASIGNATURA_PLANTILLA ap ON as_sem.AP_ID = ap.AP_ID
+    INNER JOIN 
+        PROGRAMA prog ON ap.PROGRAMA_ID = prog.PROGRAMA_ID
+    INNER JOIN 
+        MATRICULA matr ON as_sem.AS_ID = matr.AS_ID
+    INNER JOIN 
+        PERIODO_MATRICULA pmat ON matr.PMAT_ID = pmat.PMAT_ID
+    INNER JOIN 
+        PROFESOR prof ON pmat.PROF_ID = prof.PROF_ID
+    INNER JOIN 
+        EVALUADOR_EXTERNO eval_ext ON pmat.EVALUADOR_ID = eval_ext.EVALUADOR_ID
+    WHERE 
+        pmat.PERIODO_ID = p_periodo_id
+        AND prog.PROGRAMA_ID = p_programa_id
+    GROUP BY 
+        as_sem.NOMBRE, as_sem.GRUPO, as_sem.AS_ID, 
+        prof.NOMBRE, prof.PROF_ID, 
+        eval_ext.NOMBRE, eval_ext.EVALUADOR_ID;
+END$$
+DELIMITER ;
+
+
 /*	CREAR	*/
 
 DELIMITER //
@@ -53,6 +95,94 @@ BEGIN
     );
 END //
 DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE AS_CrearPorPlantilla(
+    IN p_ap_id INT, -- ID de la asignatura plantilla
+    IN p_grupo VARCHAR(255) -- Grupo para la nueva asignatura semestre
+)
+BEGIN
+    DECLARE new_as_id INT;
+
+    -- Paso 1: Crear una nueva asignatura_semestre basada en la asignatura_plantilla
+    INSERT INTO ASIGNATURA_SEMESTRE (AP_ID, NOMBRE, DESCRIPCION, GRUPO, CREDITOS, SEMESTRE, MODALIDAD, TIPO_MATERIA)
+    SELECT 
+        AP_ID, NOMBRE, DESCRIPCION, p_grupo, CREDITOS, SEMESTRE, MODALIDAD, TIPO_MATERIA
+    FROM 
+        ASIGNATURA_PLANTILLA
+    WHERE 
+        AP_ID = p_ap_id;
+
+    -- Obtener el ID de la nueva asignatura_semestre creada
+    SET new_as_id = LAST_INSERT_ID();
+
+    -- Paso 2: Crear competencias_semestre basadas en las competencias_programa asociadas
+    INSERT INTO COMPETENCIA_SEMESTRE (NOMBRE, DESCRIPCION, NIVEL, PONDERACION)
+    SELECT 
+        cp.NOMBRE, cp.DESCRIPCION, cp.NIVEL, cp.PONDERACION
+    FROM 
+        COMPETENCIA_PROGRAMA cp
+    INNER JOIN 
+        AP_CP ap_cp ON cp.CP_ID = ap_cp.CP_ID
+    WHERE 
+        ap_cp.AP_ID = p_ap_id;
+
+    -- Paso 3: Crear la relación AS_CS para las competencias_semestre creadas
+    INSERT INTO AS_CS (AS_ID, CS_ID)
+    SELECT 
+        new_as_id, cs.CS_ID
+    FROM 
+        COMPETENCIA_SEMESTRE cs
+    WHERE 
+        cs.CS_ID IN (
+            SELECT 
+                cs_sub.CS_ID
+            FROM 
+                COMPETENCIA_SEMESTRE cs_sub
+            JOIN COMPETENCIA_PROGRAMA cp_sub ON cs_sub.NOMBRE = cp_sub.NOMBRE
+            JOIN AP_CP ap_cp_sub ON cp_sub.CP_ID = ap_cp_sub.CP_ID
+            WHERE ap_cp_sub.AP_ID = p_ap_id
+        );
+
+    -- Paso 4: Crear resultados de aprendizaje (RAA) para competencias_semestre
+    INSERT INTO RAA (CS_ID, DESCRIPCION, PONDERACION)
+    SELECT 
+        cs.CS_ID, rap.DESCRIPCION, rap.PONDERACION
+    FROM 
+        RAP rap
+    INNER JOIN 
+        COMPETENCIA_PROGRAMA cp ON rap.CP_ID = cp.CP_ID
+    INNER JOIN 
+        AP_CP ap_cp ON cp.CP_ID = ap_cp.CP_ID
+    INNER JOIN 
+        COMPETENCIA_SEMESTRE cs ON cp.NOMBRE = cs.NOMBRE
+    WHERE 
+        ap_cp.AP_ID = p_ap_id;
+
+    -- Paso 5: Crear rúbricas de evaluación (RUA) para los RAA creados
+    INSERT INTO RUA (RAA_ID, DESCRIPCION, PONDERACION)
+    SELECT 
+        raa.RAA_ID, rup.DESCRIPCION, rup.PONDERACION
+    FROM 
+        RAA raa
+    INNER JOIN 
+        RAP rap ON raa.DESCRIPCION = rap.DESCRIPCION
+    INNER JOIN 
+        RUP rup ON rap.RAP_ID = rup.RAP_ID
+    WHERE 
+        raa.CS_ID IN (
+            SELECT 
+                cs.CS_ID
+            FROM 
+                COMPETENCIA_SEMESTRE cs
+                JOIN COMPETENCIA_PROGRAMA cp ON cs.NOMBRE = cp.NOMBRE
+                JOIN AP_CP ap_cp ON cp.CP_ID = ap_cp.CP_ID
+            WHERE ap_cp.AP_ID = p_ap_id
+        );
+
+END$$
+DELIMITER ;
+
 
 /*	ELIMINAR	*/
 

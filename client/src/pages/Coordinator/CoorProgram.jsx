@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
-import Style from "../stylesheets/UserPageTemplate.module.css";
+import Style from "../../stylesheets/UserPageTemplate.module.css";
 
-import ProgramTitleCard from "../components/ProgramTitleCard.jsx";
-import SemesterCard from "../components/SemesterCard.jsx";
+import ProgramTitleCard from "../../components/ProgramTitleCard.jsx";
+import SemesterCard from "../../components/SemesterCard.jsx";
 
 function App() {
   const { id } = useParams();

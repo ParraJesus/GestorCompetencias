@@ -48,12 +48,11 @@ DELIMITER //
 CREATE PROCEDURE PMAT_Crear(
     IN p_periodo_id INT,
     IN p_prof_id INT,
-    IN p_evaluador_id INT,
-    IN p_matricula_id INT
+    IN p_evaluador_id INT
 )
 BEGIN
-    INSERT INTO PERIODO_MATRICULA (PERIODO_ID, PROF_ID, EVALUADOR_ID, MATRICULA_ID)
-    VALUES (p_periodo_id, p_prof_id, p_evaluador_id, p_matricula_id);
+    INSERT INTO PERIODO_MATRICULA (PERIODO_ID, PROF_ID, EVALUADOR_ID)
+    VALUES (p_periodo_id, p_prof_id, p_evaluador_id);
 END //
 DELIMITER ;
 

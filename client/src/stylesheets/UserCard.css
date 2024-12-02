@@ -101,12 +101,14 @@
   align-items: center;
   justify-content: space-between;
   transition: min-height 0.3s;
+  overflow: hidden;
 }
 
 .asignature_data_container .paragraph {
   min-height: 100%;
   text-align: justify;
   margin: 20px;
+  overflow: hidden;
   transition: min-height 0.3s;
 }
 
@@ -141,11 +143,30 @@
 
 .competence_data_container {
   min-height: 100%;
-  text-align: justify;
+  width: 100%;
   margin: 20px;
   transition: min-height 0.3s;
 }
 
 .competence_data_container .paragraph {
-  margin: 10px;
+  text-align: justify;
+  margin: 5px 20px 5px 20px;
+}
+
+.periodCard_text_container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-height: 150px;
+  cursor: pointer;
+  margin: 0;
+}
+
+.periodCard_text_container:hover {
+  opacity: 80%;
+}
+
+.programCard {
+  margin: 0;
+  min-height: 260px;
 }

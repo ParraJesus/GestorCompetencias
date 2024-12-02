@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-import ProgramCard from "../components/ProgramCard";
-import SearchBar from "../components/SearchBar";
+import ProgramCard from "../../components/ProgramCard";
+import SearchBar from "../../components/SearchBar";
 
-import Style from "../stylesheets/UserPageTemplate.module.css";
+import Style from "../../stylesheets/UserPageTemplate.module.css";
 
 function App() {
   const [currentFilter, setCurrentFilter] = useState();

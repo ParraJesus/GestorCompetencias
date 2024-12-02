@@ -45,7 +45,7 @@ const SemesterCard = ({ semesterData }) => {
             {semesterData.ASIGNATURAS.map((asignatura, index) => (
               <AsignatureCard
                 key={index}
-                id={asignatura.AP_ID}
+                id_asig={asignatura.AP_ID}
                 nombre={asignatura.AP_NOMBRE}
                 descripcion={asignatura.AP_DESCRIPCION}
                 creditos={asignatura.AP_CREDITOS}

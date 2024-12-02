@@ -4,11 +4,15 @@ import ProfessorLayout from "./static/ProfessorLayout";
 import EvaluatorLayout from "./static/EvaluatorLayout";
 
 import PrivateRoute from "./PrivateRouter";
-import CoorProfessors from "./pages/CoorProfessors";
-import CoorEvaluators from "./pages/CoorEvaluators";
-import CoorStudents from "./pages/CoorStudents";
-import CoorPrograms from "./pages/CoorPrograms";
-import CoorProgram from "./pages/CoorProgram";
+import CoorProfessors from "./pages/Coordinator/CoorProfessors";
+import CoorEvaluators from "./pages/Coordinator/CoorEvaluators";
+import CoorStudents from "./pages/Coordinator/CoorStudents";
+import CoorPrograms from "./pages/Coordinator/CoorPrograms";
+import CoorProgram from "./pages/Coordinator/CoorProgram";
+import CoorPeriods from "./pages/Coordinator/CoorPeriods";
+import CoorMatriculePrograms from "./pages/Coordinator/CoorMatriculePrograms";
+import CoorMatricules from "./pages/Coordinator/CoorMatricules";
+import CoorAsigCompetences from "./pages/Coordinator/CoorAsigCompetences";
 import NotFound from "./pages/NotFound";
 import Login from "./pages/Login";
 
@@ -30,7 +34,13 @@ export const routes = [
       { path: "evaluadores", element: <CoorEvaluators /> },
       { path: "programas", element: <CoorPrograms /> },
       { path: "programas/:id", element: <CoorProgram /> },
-      { path: "matriculas", element: <NotFound /> },
+      { path: "programas/:id/:id_asig", element: <CoorAsigCompetences /> },
+      { path: "matriculas", element: <CoorPeriods /> },
+      { path: "matriculas/:periodo_id", element: <CoorMatriculePrograms /> },
+      {
+        path: "matriculas/:periodo_id/:programa_id",
+        element: <CoorMatricules />,
+      },
     ],
   },
   {

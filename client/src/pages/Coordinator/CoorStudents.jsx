@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-import Style from "../stylesheets/UserPageTemplate.module.css";
+import Style from "../../stylesheets/UserPageTemplate.module.css";
 
-import EvaluatorCard from "../components/EvaluatorCard.jsx";
-import SearchBar from "../components/SearchBar";
+import StudentCard from "../../components/StudentCard.jsx";
+import SearchBar from "../../components/SearchBar.jsx";
 
 function App() {
-  const [currentFilter, setCurrentFilter] = useState(""); //guardar en una variable el filtro seleccionado
-  const [searchQuery, setSearchQuery] = useState(""); //guardar en una variable el texto de búsqueda
+  const [currentFilter, setCurrentFilter] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
 
-  const filtersForEvaluators = [
+  const filtersForStudents = [
+    { label: "Todos", value: "none" },
     { label: "Nombre", value: "name" },
     { label: "Apellido", value: "surname" },
     { label: "ID", value: "id" },
@@ -25,13 +26,13 @@ function App() {
     setSearchQuery(query);
   };
 
-  const [evaluatorsData, setEvaluatorsData] = useState([]);
+  const [studentsData, setStudentsData] = useState([]);
 
   useEffect(() => {
     const fetchItems = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/evaluadores");
-        setEvaluatorsData(response.data);
+        const response = await axios.get("http://localhost:5000/estudiantes");
+        setStudentsData(response.data);
       } catch (error) {
         console.error("Error al hacer la solicitud:", error);
       }
@@ -39,7 +40,7 @@ function App() {
     fetchItems();
   }, []);
 
-  if (evaluatorsData.length === 0) {
+  if (studentsData.length === 0) {
     return (
       <div className={Style.main}>
         <div className={Style.main_header}>
@@ -56,23 +57,23 @@ function App() {
     <main className={Style.main}>
       <div className={Style.main_header}>
         <SearchBar
-          placeholdertext={"Buscar evaluador..."}
-          filters={filtersForEvaluators}
+          placeholdertext={"Buscar estudiante..."}
+          filters={filtersForStudents}
           onFilterChange={handleFilterChange}
           onSearchChange={handleSearchChange}
         />
       </div>
       <div className={Style.main_content}>
-        {evaluatorsData.map((evaluator, index) => (
-          <EvaluatorCard
+        {studentsData.map((professor, index) => (
+          <StudentCard
             key={index}
-            id={evaluator.EVALUADOR_ID}
-            nombre={evaluator.NOMBRE}
-            apellido={evaluator.APELLIDO}
-            documento={evaluator.DOCUMENTO}
-            tipoDocumento={evaluator.TIPO_DOCUMENTO}
-            nombreUsuario={evaluator.USUARIO}
-            correoInstitucional={evaluator.CORREO_INSTITUCIONAL}
+            id={professor.ESTUDIANTE_ID}
+            nombre={professor.NOMBRE}
+            apellido={professor.APELLIDO}
+            documento={professor.DOCUMENTO}
+            tipoDocumento={professor.TIPO_DOCUMENTO}
+            nombreUsuario={professor.USUARIO}
+            correoInstitucional={professor.CORREO_INSTITUCIONAL}
           />
         ))}
       </div>

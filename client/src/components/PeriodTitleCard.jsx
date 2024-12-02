@@ -4,14 +4,16 @@ import "../stylesheets/UserCard.css";
 import { ReactComponent as Chevron } from "../assets/bx-chevron-down.svg";
 import { Link } from "react-router-dom";
 
-const AsignatureTitleCard = ({ id, nombre, enlace }) => {
+const ProgramTitleCard = ({ id, ano, ciclo, enlace }) => {
   return (
     <div className="expandableCard_container">
       <div className="closed_section_container">
         <Link to={enlace}>
           <Chevron className="small-icon selectable chevron-icon-left" />
         </Link>
-        <h2>{nombre} / Competencias</h2>
+        <h2>
+          {ano} - {ciclo}
+        </h2>
       </div>
       <div className="closed_section_container">
         <p className="texto-mayor">#{id}</p>
@@ -20,4 +22,4 @@ const AsignatureTitleCard = ({ id, nombre, enlace }) => {
   );
 };
 
-export default AsignatureTitleCard;
+export default ProgramTitleCard;

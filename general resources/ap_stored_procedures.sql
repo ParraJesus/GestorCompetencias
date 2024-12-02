@@ -3,6 +3,26 @@
 /*	OBTENER	*/
 
 DELIMITER //
+CREATE PROCEDURE AP_ObtenerPorID(
+    IN p_asig_id INT
+)
+BEGIN
+    SELECT 
+        AP_ID,
+        NOMBRE,
+        DESCRIPCION,
+        CREDITOS,
+        HORAS_SEMANA,
+        MODALIDAD,
+        TIPO_MATERIA,
+        ESTADO
+    FROM ASIGNATURA_PLANTILLA
+    WHERE AP_ID = p_asig_id
+	ORDER BY ESTADO DESC;
+END //
+DELIMITER ;
+
+DELIMITER //
 CREATE PROCEDURE AP_ObtenerPorProgramaYSemestre(
     IN p_programa_id INT,
     IN p_semestre INT

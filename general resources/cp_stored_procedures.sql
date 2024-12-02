@@ -32,6 +32,90 @@ BEGIN
 END //
 DELIMITER ;
 
+DELIMITER $$
+CREATE PROCEDURE CP_ObtenerUnicoConDetalles (
+    IN competencia_id INT
+)
+BEGIN
+    SELECT JSON_OBJECT(
+        'CP_ID', CP.CP_ID,
+        'PROGRAMA_ID', CP.PROGRAMA_ID,
+        'NOMBRE', CP.NOMBRE,
+        'DESCRIPCION', CP.DESCRIPCION,
+        'NIVEL', CP.NIVEL,
+        'PONDERACION', CP.PONDERACION,
+        'ESTADO', CP.ESTADO,
+        'RESULTADOS_APRENDIZAJE', (
+            SELECT JSON_ARRAYAGG(
+                JSON_OBJECT(
+                    'RAP_ID', RAP.RAP_ID,
+                    'DESCRIPCION', RAP.DESCRIPCION,
+                    'PONDERACION', RAP.PONDERACION,
+                    'RUBRICAS_EVALUACION', (
+                        SELECT JSON_ARRAYAGG(
+                            JSON_OBJECT(
+                                'RUP_ID', RUP.RUP_ID,
+                                'DESCRIPCION', RUP.DESCRIPCION,
+                                'PONDERACION', RUP.PONDERACION
+                            )
+                        )
+                        FROM RUP
+                        WHERE RUP.RAP_ID = RAP.RAP_ID
+                    )
+                )
+            )
+            FROM RAP
+            WHERE RAP.CP_ID = CP.CP_ID
+        )
+    ) AS CompetenciaJSON
+    FROM COMPETENCIA_PROGRAMA CP
+    WHERE CP.CP_ID = competencia_id;
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE CP_ObtenerConDetallesPorPrograma (
+    IN programa_id INT
+)
+BEGIN
+    SELECT JSON_ARRAYAGG(
+        JSON_OBJECT(
+            'CP_ID', CP.CP_ID,
+            'PROGRAMA_ID', CP.PROGRAMA_ID,
+            'NOMBRE', CP.NOMBRE,
+            'DESCRIPCION', CP.DESCRIPCION,
+            'NIVEL', CP.NIVEL,
+            'PONDERACION', CP.PONDERACION,
+            'ESTADO', CP.ESTADO,
+            'RESULTADOS_APRENDIZAJE', (
+                SELECT JSON_ARRAYAGG(
+                    JSON_OBJECT(
+                        'RAP_ID', RAP.RAP_ID,
+                        'DESCRIPCION', RAP.DESCRIPCION,
+                        'PONDERACION', RAP.PONDERACION,
+                        'RUBRICAS_EVALUACION', (
+                            SELECT JSON_ARRAYAGG(
+                                JSON_OBJECT(
+                                    'RUP_ID', RUP.RUP_ID,
+                                    'DESCRIPCION', RUP.DESCRIPCION,
+                                    'PONDERACION', RUP.PONDERACION
+                                )
+                            )
+                            FROM RUP
+                            WHERE RUP.RAP_ID = RAP.RAP_ID
+                        )
+                    )
+                )
+                FROM RAP
+                WHERE RAP.CP_ID = CP.CP_ID
+            )
+        )
+    ) AS CompetenciasJSON
+    FROM COMPETENCIA_PROGRAMA CP
+    WHERE CP.PROGRAMA_ID = programa_id;
+END$$
+DELIMITER ;
+
 /*	CREAR	*/
 
 DELIMITER //

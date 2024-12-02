@@ -54,6 +54,16 @@ END //
 DELIMITER ;
 
 DELIMITER //
+CREATE PROCEDURE Programa_ObtenerUnicoPorID(
+	IN p_id VARCHAR(255)
+)
+BEGIN
+    SELECT * FROM programa
+    WHERE PROGRAMA_ID = p_id;
+END //
+DELIMITER ;
+
+DELIMITER //
 CREATE PROCEDURE Programa_ObtenerPorFacultad(
 	IN p_facultad VARCHAR(255)
 )

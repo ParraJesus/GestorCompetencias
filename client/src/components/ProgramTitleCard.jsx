@@ -1,6 +1,8 @@
 import React from "react";
 import "../stylesheets/UserCard.css";
+
 import { ReactComponent as Chevron } from "../assets/bx-chevron-down.svg";
+import { Link } from "react-router-dom";
 
 const ProgramTitleCard = ({
   id,
@@ -13,9 +15,9 @@ const ProgramTitleCard = ({
   return (
     <div className="expandableCard_container">
       <div className="closed_section_container">
-        <a href={enlace}>
+        <Link to={enlace}>
           <Chevron className="small-icon selectable chevron-icon-left" />
-        </a>
+        </Link>
         <h2>
           {nombre} - {modalidad}
         </h2>
