@@ -43,7 +43,6 @@ app.use("/asignaturas", asignaturaRoutes);
 app.use("/asig_plantilla", asig_plantillaRoutes);
 
 app.use("/matriculas", matriculaRoutes);
-app.use("/asig_plantilla", asig_plantillaRoutes);
 app.use("/competenciasprograma", competenciasProgramaRoutes);
 app.use("/apcp", ap_cpRoutes);
 app.use("/periodos", periodoRoutes);

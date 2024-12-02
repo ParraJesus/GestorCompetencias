@@ -26,10 +26,19 @@ function App() {
     setSearchQuery(query);
   };
 
+  const handleAgregarClic = () => {
+    console.log("agregado");
+  };
+
+  const handleRemoverClic = () => {
+    console.log("removido");
+  };
+
   const { id, id_asig } = useParams();
+
+  //Traer competencias de todo el programa
   const [cpData, setCpData] = useState([]);
   const [isLoadingCp, setIsLoadingCp] = useState(true);
-
   useEffect(() => {
     const fetchItems = async () => {
       try {
@@ -47,22 +56,16 @@ function App() {
     fetchItems();
   }, [id, id_asig]);
 
-  const handleAgregarClic = () => {
-    console.log("agregado");
-  };
-
-  const handleRemoverClic = () => {
-    console.log("removido");
-  };
-
+  //Traer Competencias de la asignatura plantilla
   const [apCpData, setApCpData] = useState([]);
   const [isLoadingApCp, setIsLoadingApCp] = useState(true);
-
   useEffect(() => {
     const fetchItems = async () => {
       try {
         setIsLoadingApCp(true);
-        const response = await axios.get(`http://localhost:5000/apcp/${id}`);
+        const response = await axios.get(
+          `http://localhost:5000/apcp/${id_asig}`
+        );
         setApCpData(response.data.CompetenciasJSON);
       } catch (error) {
         console.error("Error al hacer la solicitud:", error);
@@ -73,15 +76,37 @@ function App() {
     fetchItems();
   }, [id, id_asig]);
 
+  //Traer datos de la asignatura plantilla
+  const [apData, setApData] = useState([]);
+  const [isLoadingAp, setIsLoadingAp] = useState(true);
+  useEffect(() => {
+    const fetchItems = async () => {
+      try {
+        setIsLoadingAp(true);
+        const response = await axios.get(
+          `http://localhost:5000/asig_plantilla/${id_asig}`
+        );
+        setApData(response.data);
+      } catch (error) {
+        console.error("Error al hacer la solicitud:", error);
+      } finally {
+        setIsLoadingAp(false);
+      }
+    };
+    fetchItems();
+  }, [id, id_asig]);
+
   return (
     <main className={`${Style.main} ${Style.main_two_columns}`}>
       <div className={Style.main_column}>
         <div className={Style.main_header}>
-          <AsignatureTitleCard
-            nombre={"Cálculo 1 (hardcoded)"}
-            id={"001"}
-            enlace={`/coordinador/programas/${id}`}
-          />
+          {!isLoadingAp && (
+            <AsignatureTitleCard
+              nombre={apData.NOMBRE}
+              id={apData.AP_ID}
+              enlace={`/coordinador/programas/${id}`}
+            />
+          )}
         </div>
         <div className={Style.main_content}>
           {isLoadingApCp ? (
@@ -89,6 +114,7 @@ function App() {
               Cargando competencias de la asignatura...
             </p>
           ) : (
+            apCpData &&
             apCpData.map((competence, index) => (
               <CompetenceCard
                 key={index}
@@ -114,6 +140,7 @@ function App() {
           {isLoadingCp ? (
             <p className="paragraph">Cargando competencias...</p>
           ) : (
+            cpData &&
             cpData.map((competence, index) => (
               <CompetenceCard
                 key={index}
