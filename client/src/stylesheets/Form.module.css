@@ -1,0 +1,39 @@
+.main_container {
+  display: flex;
+  justify-content: center;
+}
+
+.form_container {
+  width: 60%;
+  margin-top: 20px;
+}
+
+.form {
+  align-self: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form_label {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  text-align: start;
+}
+
+.form_input {
+  padding: 10px;
+  outline: none;
+  height: 40px;
+  width: 100%;
+  font-family: lato;
+  color: var(--font-color-2);
+  background-color: #efeff3;
+  border: none;
+  border-bottom: 2px solid black;
+  border-image: linear-gradient(to right, #7476dc, #c187e2);
+  border-image-slice: 1;
+}

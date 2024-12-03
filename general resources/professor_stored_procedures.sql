@@ -64,6 +64,7 @@ BEGIN
 END //
 DELIMITER ;
 
+
 DELIMITER //
 CREATE PROCEDURE Profesor_ObtenerUnicoPorID(
 	IN p_id INT
@@ -184,7 +185,7 @@ CREATE PROCEDURE Profesor_Habilitar(IN p_profesor_id INT)
 BEGIN
     UPDATE PROFESOR
     SET ESTADO = '1'
-    WHERE PROFESOR_ID = p_profesor_id;
+    WHERE PROF_ID = p_profesor_id;
 END //
 DELIMITER ;
 

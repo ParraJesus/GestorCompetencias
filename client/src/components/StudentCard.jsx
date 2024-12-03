@@ -1,19 +1,12 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
 import "../stylesheets/UserCard.css";
+
 import { ReactComponent as UserIcon } from "../assets/bxs-user-circle.svg";
 import { ReactComponent as Chevron } from "../assets/bx-chevron-down.svg";
-/*
-<StudentCard
-          nombre={"Estudiante"}
-          apellido={"Quenguan"}
-          documento={"1100000000"}
-          tipoDocumento={"CC"}
-          id={"001"}
-          nombreUsuario={"emorillo"}
-          correoInstitucional={"emorillo@unicauca.edu.co"}
-          programa={"Ingeniería de Sistemas"}
-        />
-*/
+
 const StudentCard = ({
   nombre,
   apellido,
@@ -22,9 +15,47 @@ const StudentCard = ({
   id,
   nombreUsuario,
   correoInstitucional,
-  programa,
+  estado,
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
+
+  const navigate = useNavigate();
+  const handleEditar = () => {
+    navigate(`/coordinador/estudiantes/editar/${id}`);
+  };
+
+  const handleDelete = () => {
+    if (
+      window.confirm(
+        "¿Estás seguro de que deseas deshabilitar este estudiante?"
+      )
+    ) {
+      axios
+        .delete(`http://localhost:5000/estudiantes/${id}`)
+        .then((response) => {
+          alert(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+          alert("Error al deshabilitar el estudiante.");
+        });
+    }
+  };
+  const hadleHabilitar = () => {
+    if (
+      window.confirm("¿Estás seguro de que deseas habilitar este estudiante?")
+    ) {
+      axios
+        .put(`http://localhost:5000/estudiantes/habilitar/${id}`)
+        .then((response) => {
+          alert(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+          alert("Error al deshabilitar el estudiante.");
+        });
+    }
+  };
 
   return (
     <div
@@ -65,7 +96,6 @@ const StudentCard = ({
                   {nombre} {apellido}
                 </h2>
                 <p className="texto-mayor">#{id}</p>
-                <p className="texto-mayor">Programa: {programa}</p>
                 <p className="texto-mayor">
                   {tipoDocumento} : {documento}
                 </p>
@@ -83,8 +113,19 @@ const StudentCard = ({
             </div>
           </div>
           <div className="expandableCard_button_container">
-            <button className="button-second">Editar</button>
-            <button className="button-first">Deshabilitar</button>
+            <button className="button-second" onClick={handleEditar}>
+              Editar
+            </button>
+            {estado === "0" && (
+              <button className="button-first" onClick={hadleHabilitar}>
+                Habilitar
+              </button>
+            )}
+            {estado === "1" && (
+              <button className="button-first" onClick={handleDelete}>
+                Deshabilitar
+              </button>
+            )}
           </div>
         </>
       )}

@@ -64,16 +64,17 @@ function App() {
         />
       </div>
       <div className={Style.main_content}>
-        {studentsData.map((professor, index) => (
+        {studentsData.map((estudiante, index) => (
           <StudentCard
             key={index}
-            id={professor.ESTUDIANTE_ID}
-            nombre={professor.NOMBRE}
-            apellido={professor.APELLIDO}
-            documento={professor.DOCUMENTO}
-            tipoDocumento={professor.TIPO_DOCUMENTO}
-            nombreUsuario={professor.USUARIO}
-            correoInstitucional={professor.CORREO_INSTITUCIONAL}
+            id={estudiante.ESTUDIANTE_ID}
+            nombre={estudiante.NOMBRE}
+            apellido={estudiante.APELLIDO}
+            documento={estudiante.DOCUMENTO}
+            tipoDocumento={estudiante.TIPO_DOCUMENTO}
+            nombreUsuario={estudiante.USUARIO}
+            correoInstitucional={estudiante.CORREO_INSTITUCIONAL}
+            estado={estudiante.ESTADO}
           />
         ))}
       </div>

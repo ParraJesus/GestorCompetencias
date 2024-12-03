@@ -16,7 +16,6 @@ const routeTitles = {
   "/coordinador/profesores": "Gestión de Profesores",
   "/coordinador/evaluadores": "Gestión de Evaluadores",
   "/coordinador/programas": "Gestión de Programas",
-  "/coordinador/programas/:id": "Gestión",
   "/coordinador/matriculas": "Gestión de Matrículas",
 };
 
@@ -37,7 +36,10 @@ const App = () => {
       icono: ProfessorIcon,
       expandedItems: [
         { texto: "Listar Profesores", enlace: "/coordinador/profesores" },
-        { texto: "Crear Profesor", enlace: "/coordinador/profesores" },
+        {
+          texto: "Crear Profesor",
+          enlace: "/coordinador/profesores/registrar",
+        },
       ],
     },
     {
@@ -45,6 +47,10 @@ const App = () => {
       icono: StudentIcon,
       expandedItems: [
         { texto: "Listar Estudiantes", enlace: "/coordinador/estudiantes" },
+        {
+          texto: "Crear Estudiante",
+          enlace: "/coordinador/estudiantes/registrar",
+        },
       ],
     },
     {
@@ -52,6 +58,10 @@ const App = () => {
       icono: EvaluatorIcon,
       expandedItems: [
         { texto: "Listar Evaluadores", enlace: "/coordinador/evaluadores" },
+        {
+          texto: "Crear Evaluador",
+          enlace: "/coordinador/evaluadores/registrar",
+        },
       ],
     },
     {
@@ -59,6 +69,7 @@ const App = () => {
       icono: ProgramIcon,
       expandedItems: [
         { texto: "Listar Programas", enlace: "/coordinador/programas" },
+        { texto: "Crear Programa", enlace: "/coordinador/programas/registrar" },
       ],
     },
     {

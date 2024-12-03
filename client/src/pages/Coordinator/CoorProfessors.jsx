@@ -79,6 +79,7 @@ function App() {
             ultimoTitulo={professor.ULTIMO_TITULO}
             nombreUsuario={professor.USUARIO}
             correoInstitucional={professor.CORREO_INSTITUCIONAL}
+            estado={professor.ESTADO}
           />
         ))}
       </div>

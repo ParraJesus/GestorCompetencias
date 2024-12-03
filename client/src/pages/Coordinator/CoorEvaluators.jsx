@@ -73,6 +73,7 @@ function App() {
             tipoDocumento={evaluator.TIPO_DOCUMENTO}
             nombreUsuario={evaluator.USUARIO}
             correoInstitucional={evaluator.CORREO_INSTITUCIONAL}
+            estado={evaluator.ESTADO}
           />
         ))}
       </div>

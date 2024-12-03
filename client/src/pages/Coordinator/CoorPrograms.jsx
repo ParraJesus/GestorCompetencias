@@ -71,6 +71,7 @@ function App() {
             facultad={programa.FACULTAD}
             titulo={programa.TITULO}
             cantidadSemestres={programa.DURACION_SEMESTRES}
+            estado={programa.ESTADO}
           />
         ))}
       </div>

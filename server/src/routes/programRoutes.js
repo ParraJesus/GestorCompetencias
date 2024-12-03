@@ -56,7 +56,7 @@ router.post("/create", (req, res) => {
     tipo_programa,
     estado,
   } = req.body;
-
+  console.log(req.body);
   db.query(
     "CALL Programa_Crear(?, ?, ?, ?, ?, ?, ?, ?)",
     [
@@ -81,9 +81,9 @@ router.post("/create", (req, res) => {
 });
 
 //ACTUALIZAR
-router.put("/update/:id", (req, res) => {
-  const { id } = req.params;
+router.put("/", (req, res) => {
   const {
+    id,
     coordinador_id,
     nombre,
     duracion_semestres,
@@ -92,7 +92,6 @@ router.put("/update/:id", (req, res) => {
     facultad,
     tipo_programa,
   } = req.body;
-
   db.query(
     "CALL Programa_Editar(?, ?, ?, ?, ?, ?, ?, ?)",
     [
@@ -117,7 +116,7 @@ router.put("/update/:id", (req, res) => {
 });
 
 //ELIMINAR
-router.put("/delete/:id", (req, res) => {
+router.delete("/:id", (req, res) => {
   const { id } = req.params;
 
   db.query("CALL Programa_Deshabilitar(?)", [id], (err, result) => {
@@ -126,6 +125,20 @@ router.put("/delete/:id", (req, res) => {
       res.status(500).send("Error al deshabilitar el programa");
     } else {
       res.status(200).send("Programa deshabilitado con éxito");
+    }
+  });
+});
+
+//Habilitar
+router.put("/habilitar/:id", (req, res) => {
+  const { id } = req.params;
+
+  db.query("CALL Programa_Habilitar(?)", [id], (err, result) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send("Error al habilitar");
+    } else {
+      res.send("Habilitado con éxito");
     }
   });
 });

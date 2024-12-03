@@ -1,20 +1,12 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
 import "../stylesheets/UserCard.css";
+
 import { ReactComponent as UserIcon } from "../assets/bxs-user-circle.svg";
 import { ReactComponent as Chevron } from "../assets/bx-chevron-down.svg";
-/*
-<ProfessorCard
-  nombre={"Melissa"}
-  apellido={"Gugu"}
-  documento={"1100000000"}
-  tipoDocumento={"CC"}
-  tipoDocente={"Planta"}
-  ultimoTitulo={"Doctorado"}
-  id={"001"}
-  nombreUsuario={"mgu"}
-  correoInstitucional={"mgo@unicauca.edu.co"}
-/>
-*/
+
 const ProfesorCard = ({
   nombre,
   apellido,
@@ -25,8 +17,45 @@ const ProfesorCard = ({
   id,
   nombreUsuario,
   correoInstitucional,
+  estado,
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
+
+  const navigate = useNavigate();
+  const handleEditar = () => {
+    navigate(`/coordinador/profesores/editar/${id}`);
+  };
+
+  const handleDelete = () => {
+    if (
+      window.confirm("¿Estás seguro de que deseas deshabilitar este profesor?")
+    ) {
+      axios
+        .delete(`http://localhost:5000/profesores/${id}`)
+        .then((response) => {
+          alert(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+          alert("Error al deshabilitar el profesor.");
+        });
+    }
+  };
+  const hadleHabilitar = () => {
+    if (
+      window.confirm("¿Estás seguro de que deseas habilitar este profesor?")
+    ) {
+      axios
+        .put(`http://localhost:5000/profesores/habilitar/${id}`)
+        .then((response) => {
+          alert(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+          alert("Error al deshabilitar el profesor.");
+        });
+    }
+  };
 
   return (
     <div
@@ -89,8 +118,19 @@ const ProfesorCard = ({
             </div>
           </div>
           <div className="expandableCard_button_container">
-            <button className="button-second">Editar</button>
-            <button className="button-first">Deshabilitar</button>
+            <button className="button-second" onClick={handleEditar}>
+              Editar
+            </button>
+            {estado === "0" && (
+              <button className="button-first" onClick={hadleHabilitar}>
+                Habilitar
+              </button>
+            )}
+            {estado === "1" && (
+              <button className="button-first" onClick={handleDelete}>
+                Deshabilitar
+              </button>
+            )}
           </div>
         </>
       )}

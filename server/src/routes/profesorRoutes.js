@@ -96,6 +96,20 @@ router.delete("/:id", (req, res) => {
   });
 });
 
+//Habilitar
+router.put("/habilitar/:id", (req, res) => {
+  const { id } = req.params;
+
+  db.query("CALL Profesor_Habilitar(?)", [id], (err, result) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send("Error al actualizar profesor");
+    } else {
+      res.send("Profesor actualizado con éxito");
+    }
+  });
+});
+
 //LISTAR POR ID
 router.get("/by-id", (req, res) => {
   db.query("CALL Profesor_ObtenerOrdenadosPorID()", (err, result) => {
@@ -111,6 +125,19 @@ router.get("/by-id", (req, res) => {
 //LISTAR
 router.get("/", (req, res) => {
   db.query("CALL Profesor_ObtenerOrdenados()", (err, result) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send("Error al obtener los profesores");
+    } else {
+      res.send(result[0]);
+    }
+  });
+});
+
+//OBTENER ÚNICO POR ID
+router.get("/profesor/:id", (req, res) => {
+  const { id } = req.params;
+  db.query("CALL Profesor_ObtenerUnicoPorID(?)", [id], (err, result) => {
     if (err) {
       console.error(err);
       res.status(500).send("Error al obtener los profesores");

@@ -44,6 +44,17 @@ END //
 DELIMITER ;
 
 DELIMITER //
+CREATE PROCEDURE Evaluador_ObtenerUnicoPorID(
+	IN p_id VARCHAR(255)
+)
+BEGIN
+    SELECT * FROM evaluador_externo
+    WHERE EVALUADOR_ID LIKE p_id
+    ORDER BY ESTADO DESC;
+END //
+DELIMITER ;
+
+DELIMITER //
 CREATE PROCEDURE Evaluador_ObtenerPorDocumento(
 	IN p_doc VARCHAR(255)
 )

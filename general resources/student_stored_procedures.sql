@@ -44,6 +44,17 @@ END //
 DELIMITER ;
 
 DELIMITER //
+CREATE PROCEDURE Estudiante_ObtenerUnicoPorID(
+	IN p_id VARCHAR(255)
+)
+BEGIN
+    SELECT * FROM estudiante
+    WHERE ESTUDIANTE_ID LIKE p_id
+    ORDER BY ESTADO DESC;
+END //
+DELIMITER ;
+
+DELIMITER //
 CREATE PROCEDURE Estudiante_ObtenerPorDocumento(
 	IN p_doc VARCHAR(255)
 )

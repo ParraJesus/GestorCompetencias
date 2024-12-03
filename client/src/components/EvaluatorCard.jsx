@@ -1,18 +1,12 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
 import "../stylesheets/UserCard.css";
+
 import { ReactComponent as UserIcon } from "../assets/bxs-user-circle.svg";
 import { ReactComponent as Chevron } from "../assets/bx-chevron-down.svg";
-/*
-<EvaluadorCard
-          nombre={"Evaluador"}
-          apellido={"Parra"}
-          documento={"1100000000"}
-          tipoDocumento={"CC"}
-          id={"001"}
-          nombreUsuario={"parraevaluador"}
-          correoInstitucional={"evaparra@unicauca.edu.co"}
-        />
-*/
+
 const EvaluadorCard = ({
   nombre,
   apellido,
@@ -21,8 +15,45 @@ const EvaluadorCard = ({
   id,
   nombreUsuario,
   correoInstitucional,
+  estado,
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
+
+  const navigate = useNavigate();
+  const handleEditar = () => {
+    navigate(`/coordinador/evaluadores/editar/${id}`);
+  };
+
+  const handleDelete = () => {
+    if (
+      window.confirm("¿Estás seguro de que deseas deshabilitar este evaluador?")
+    ) {
+      axios
+        .delete(`http://localhost:5000/evaluadores/${id}`)
+        .then((response) => {
+          alert(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+          alert("Error al deshabilitar el evaluador.");
+        });
+    }
+  };
+  const hadleHabilitar = () => {
+    if (
+      window.confirm("¿Estás seguro de que deseas habilitar este evaluador?")
+    ) {
+      axios
+        .put(`http://localhost:5000/evaluadores/habilitar/${id}`)
+        .then((response) => {
+          alert(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+          alert("Error al deshabilitar el evaluador.");
+        });
+    }
+  };
 
   return (
     <div
@@ -80,8 +111,19 @@ const EvaluadorCard = ({
             </div>
           </div>
           <div className="expandableCard_button_container">
-            <button className="button-second">Editar</button>
-            <button className="button-first">Deshabilitar</button>
+            <button className="button-second" onClick={handleEditar}>
+              Editar
+            </button>
+            {estado === "0" && (
+              <button className="button-first" onClick={hadleHabilitar}>
+                Habilitar
+              </button>
+            )}
+            {estado === "1" && (
+              <button className="button-first" onClick={handleDelete}>
+                Deshabilitar
+              </button>
+            )}
           </div>
         </>
       )}
