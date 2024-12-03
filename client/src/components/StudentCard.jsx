@@ -16,6 +16,7 @@ const StudentCard = ({
   nombreUsuario,
   correoInstitucional,
   estado,
+  onUpdateState,
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -34,6 +35,7 @@ const StudentCard = ({
         .delete(`http://localhost:5000/estudiantes/${id}`)
         .then((response) => {
           alert(response.data);
+          onUpdateState(id, "0");
         })
         .catch((error) => {
           console.error(error);
@@ -49,6 +51,7 @@ const StudentCard = ({
         .put(`http://localhost:5000/estudiantes/habilitar/${id}`)
         .then((response) => {
           alert(response.data);
+          onUpdateState(id, "1");
         })
         .catch((error) => {
           console.error(error);

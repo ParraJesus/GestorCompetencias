@@ -52,6 +52,16 @@ function App() {
     );
   }
 
+  const updateEvaluatorState = (id, newState) => {
+    setEvaluatorsData((prevData) =>
+      prevData.map((evaluator) =>
+        evaluator.EVALUADOR_ID === id
+          ? { ...evaluator, ESTADO: newState }
+          : evaluator
+      )
+    );
+  };
+
   return (
     <main className={Style.main}>
       <div className={Style.main_header}>
@@ -74,6 +84,7 @@ function App() {
             nombreUsuario={evaluator.USUARIO}
             correoInstitucional={evaluator.CORREO_INSTITUCIONAL}
             estado={evaluator.ESTADO}
+            onUpdateState={updateEvaluatorState}
           />
         ))}
       </div>

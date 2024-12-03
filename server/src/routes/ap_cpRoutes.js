@@ -25,4 +25,32 @@ router.get("/:id", (req, res) => {
   );
 });
 
+//CREAR
+router.post("/:id_ap/:id_cp", (req, res) => {
+  const { id_ap, id_cp } = req.params;
+
+  db.query("CALL AP_CP_Crear(?, ?)", [id_ap, id_cp], (err, result) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send("Error al registrar");
+    } else {
+      res.send("Registrado con éxito");
+    }
+  });
+});
+
+//CREAR
+router.delete("/:id_ap/:id_cp", (req, res) => {
+  const { id_ap, id_cp } = req.params;
+  console.log(id_ap, id_cp);
+  db.query("CALL AP_CP_Eliminar(?, ?)", [id_ap, id_cp], (err, result) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send("Error al eliminar");
+    } else {
+      res.send("Eliminado con éxito");
+    }
+  });
+});
+
 module.exports = router;

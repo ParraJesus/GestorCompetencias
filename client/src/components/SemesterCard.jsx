@@ -52,6 +52,7 @@ const SemesterCard = ({ semesterData }) => {
                 horas_semana={asignatura.AP_HORAS_SEMANA}
                 modalidad={asignatura.AP_MODALIDAD}
                 tipo_materia={asignatura.AP_TIPO_MATERIA}
+                estado={asignatura.AP_ESTADO}
               />
             ))}
           </div>

@@ -80,6 +80,8 @@ CREATE PROCEDURE AP_CP_Crear(
 )
 BEGIN
     DECLARE msg VARCHAR(255);
+    SET msg = "...";
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = msg;
 
     -- Verificar si la asignatura plantilla existe
     IF NOT EXISTS (

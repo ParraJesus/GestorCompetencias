@@ -4,36 +4,10 @@ import Style from "../../stylesheets/UserPageTemplate.module.css";
 
 import AsignatureTitleCard from "../../components/AsignatureTitleCard.jsx";
 import TitleCard from "../../components/TitleCard.jsx";
-import SearchBar from "../../components/SearchBar.jsx";
 import CompetenceCard from "../../components/CompetenceCard.jsx";
 import { useParams } from "react-router-dom";
 
 function App() {
-  const [currentFilter, setCurrentFilter] = useState("");
-  const [searchQuery, setSearchQuery] = useState("");
-
-  const filtersForCompetences = [
-    { label: "Todos", value: "none" },
-    { label: "ID", value: "id" },
-    { label: "Nombre", value: "nombre" },
-  ];
-
-  const handleFilterChange = (filter) => {
-    setCurrentFilter(filter);
-  };
-
-  const handleSearchChange = (query) => {
-    setSearchQuery(query);
-  };
-
-  const handleAgregarClic = () => {
-    console.log("agregado");
-  };
-
-  const handleRemoverClic = () => {
-    console.log("removido");
-  };
-
   const { id, id_asig } = useParams();
 
   //Traer competencias de todo el programa
@@ -79,6 +53,7 @@ function App() {
   //Traer datos de la asignatura plantilla
   const [apData, setApData] = useState([]);
   const [isLoadingAp, setIsLoadingAp] = useState(true);
+
   useEffect(() => {
     const fetchItems = async () => {
       try {
@@ -95,6 +70,32 @@ function App() {
     };
     fetchItems();
   }, [id, id_asig]);
+
+  const handleAgregarClic = async (id_competence) => {
+    console.log(`asignatura: ${id_asig} competencia: ${id_competence}`);
+    try {
+      const response = await axios.post(
+        `http://localhost:5000/apcp/${id_asig}/${id_competence}`
+      );
+      alert(response.data);
+    } catch (error) {
+      console.error(error);
+      alert("Hubo un error al registrar el cambio.");
+    }
+  };
+
+  const handleRemoverClic = async (id_competence) => {
+    console.log(`asignatura: ${id_asig} competencia: ${id_competence}`);
+    try {
+      const response = await axios.delete(
+        `http://localhost:5000/apcp/${id_asig}/${id_competence}`
+      );
+      alert(response.data);
+    } catch (error) {
+      console.error(error);
+      alert("Hubo un error al registrar el cambio.");
+    }
+  };
 
   return (
     <main className={`${Style.main} ${Style.main_two_columns}`}>
@@ -119,7 +120,7 @@ function App() {
               <CompetenceCard
                 key={index}
                 competenceData={competence}
-                onClick={handleRemoverClic}
+                handleRel={handleRemoverClic}
                 buttonText={"Remover"}
               />
             ))
@@ -129,12 +130,6 @@ function App() {
       <div className={Style.main_column}>
         <div className={Style.main_header}>
           <TitleCard titulo={"Competencias de Programa"} />
-          <SearchBar
-            placeholdertext={"Buscar competencia..."}
-            filters={filtersForCompetences}
-            onFilterChange={handleFilterChange}
-            onSearchChange={handleSearchChange}
-          />
         </div>
         <div className={Style.main_content}>
           {isLoadingCp ? (
@@ -145,7 +140,7 @@ function App() {
               <CompetenceCard
                 key={index}
                 competenceData={competence}
-                onClick={handleAgregarClic}
+                handleRel={handleAgregarClic}
                 buttonText={"Agregar"}
               />
             ))

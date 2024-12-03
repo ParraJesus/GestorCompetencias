@@ -16,6 +16,7 @@ const EvaluadorCard = ({
   nombreUsuario,
   correoInstitucional,
   estado,
+  onUpdateState,
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -32,6 +33,7 @@ const EvaluadorCard = ({
         .delete(`http://localhost:5000/evaluadores/${id}`)
         .then((response) => {
           alert(response.data);
+          onUpdateState(id, "0");
         })
         .catch((error) => {
           console.error(error);
@@ -47,6 +49,7 @@ const EvaluadorCard = ({
         .put(`http://localhost:5000/evaluadores/habilitar/${id}`)
         .then((response) => {
           alert(response.data);
+          onUpdateState(id, "1");
         })
         .catch((error) => {
           console.error(error);

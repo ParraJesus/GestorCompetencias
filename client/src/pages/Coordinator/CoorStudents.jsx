@@ -40,6 +40,16 @@ function App() {
     fetchItems();
   }, []);
 
+  const updateStudentState = (id, newState) => {
+    setStudentsData((prevData) =>
+      prevData.map((student) =>
+        student.ESTUDIANTE_ID === id
+          ? { ...student, ESTADO: newState }
+          : student
+      )
+    );
+  };
+
   if (studentsData.length === 0) {
     return (
       <div className={Style.main}>
@@ -75,6 +85,7 @@ function App() {
             nombreUsuario={estudiante.USUARIO}
             correoInstitucional={estudiante.CORREO_INSTITUCIONAL}
             estado={estudiante.ESTADO}
+            onUpdateState={updateStudentState}
           />
         ))}
       </div>

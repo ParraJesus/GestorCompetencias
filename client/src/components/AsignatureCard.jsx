@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import axios from "axios";
 
 import "../stylesheets/UserCard.css";
 
@@ -14,14 +15,52 @@ const AsignatureCard = ({
   horas_semana,
   modalidad,
   tipo_materia,
+  estado,
+  onUpdateState,
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const navigate = useNavigate();
   const { id } = useParams();
-  console.log(id);
 
   const hadleCompetencias = () => {
     navigate(`/coordinador/programas/${id}/${id_asig}`);
+  };
+
+  const handleEditar = () => {
+    navigate(`/coordinador/programas/${id}/editar/${id_asig}`);
+  };
+
+  const handleDelete = () => {
+    if (
+      window.confirm(
+        "¿Estás seguro de que deseas deshabilitar esta asignatura?"
+      )
+    ) {
+      axios
+        .delete(`http://localhost:5000/asig_plantilla/${id_asig}`)
+        .then((response) => {
+          alert(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+          alert("Error al deshabilitar la asignatura.");
+        });
+    }
+  };
+  const hadleHabilitar = () => {
+    if (
+      window.confirm("¿Estás seguro de que deseas habilitar esta asignatura?")
+    ) {
+      axios
+        .put(`http://localhost:5000/asig_plantilla/habilitar/${id_asig}`)
+        .then((response) => {
+          alert(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+          alert("Error al deshabilitar el evaluador.");
+        });
+    }
   };
 
   return (
@@ -75,8 +114,19 @@ const AsignatureCard = ({
             <button className="button-second" onClick={hadleCompetencias}>
               Competencias
             </button>
-            <button className="button-second">Editar</button>
-            <button className="button-first">Deshabilitar</button>
+            <button className="button-second" onClick={handleEditar}>
+              Editar
+            </button>
+            {estado === "0" && (
+              <button className="button-first" onClick={hadleHabilitar}>
+                Habilitar
+              </button>
+            )}
+            {estado === "1" && (
+              <button className="button-first" onClick={handleDelete}>
+                Deshabilitar
+              </button>
+            )}
           </div>
         </>
       )}

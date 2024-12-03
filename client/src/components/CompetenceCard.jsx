@@ -2,8 +2,12 @@ import React, { useState } from "react";
 import "../stylesheets/UserCard.css";
 import { ReactComponent as Chevron } from "../assets/bx-chevron-down.svg";
 
-const CompetenceCard = ({ competenceData, onClick, buttonText }) => {
+const CompetenceCard = ({ competenceData, handleRel, buttonText }) => {
   const [isExpanded, setIsExpanded] = useState(false);
+
+  const handleButton = () => {
+    handleRel(competenceData.CP_ID);
+  };
 
   return (
     <div
@@ -74,11 +78,10 @@ const CompetenceCard = ({ competenceData, onClick, buttonText }) => {
             </ul>
           </div>
           <div className="expandableCard_button_container">
-            <button className="button-second" onClick={onClick}>
+            <button className="button-second">Editar</button>
+            <button className="button-first" onClick={handleButton}>
               {buttonText}
             </button>
-            <button className="button-second">Editar</button>
-            <button className="button-first">Deshabilitar</button>
           </div>
         </>
       )}

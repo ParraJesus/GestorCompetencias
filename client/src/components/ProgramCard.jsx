@@ -15,6 +15,7 @@ const ProgramCard = ({
   titulo,
   cantidadSemestres,
   estado,
+  onUpdateState,
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -35,6 +36,7 @@ const ProgramCard = ({
         .delete(`http://localhost:5000/programas/${id}`)
         .then((response) => {
           alert(response.data);
+          onUpdateState(id, "0");
         })
         .catch((error) => {
           console.error(error);
@@ -51,6 +53,7 @@ const ProgramCard = ({
         .put(`http://localhost:5000/programas/habilitar/${id}`)
         .then((response) => {
           alert(response.data);
+          onUpdateState(id, "1");
         })
         .catch((error) => {
           console.error(error);

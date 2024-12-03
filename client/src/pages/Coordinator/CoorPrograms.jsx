@@ -50,6 +50,14 @@ function App() {
     );
   }
 
+  const updateProgramState = (id, newState) => {
+    setProgramsData((prevData) =>
+      prevData.map((program) =>
+        program.PROGRAMA_ID === id ? { ...program, ESTADO: newState } : program
+      )
+    );
+  };
+
   return (
     <main className={Style.main}>
       <div className={Style.main_header}>
@@ -72,6 +80,7 @@ function App() {
             titulo={programa.TITULO}
             cantidadSemestres={programa.DURACION_SEMESTRES}
             estado={programa.ESTADO}
+            onUpdateState={updateProgramState}
           />
         ))}
       </div>

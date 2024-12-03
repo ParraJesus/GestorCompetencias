@@ -6,6 +6,7 @@ import Style from "../../stylesheets/UserPageTemplate.module.css";
 
 import ProgramTitleCard from "../../components/ProgramTitleCard.jsx";
 import SemesterCard from "../../components/SemesterCard.jsx";
+import AddCard from "../../components/AddCard.jsx";
 
 function App() {
   const { id } = useParams();
@@ -57,6 +58,10 @@ function App() {
           }
           return null;
         })}
+        <AddCard
+          enlace={`/coordinador/programas/${id}/registrar`}
+          hoverTitle={"Agregar Asignatura"}
+        />
       </div>
     </main>
   );

@@ -30,6 +30,8 @@ import CoorProgram from "./pages/Coordinator/CoorProgram";
 import CoorProgramsCreate from "./pages/Coordinator/CoorProgramsCreate";
 import CoorProgramsEdit from "./pages/Coordinator/CoorProgramsEdit";
 import CoorMatriculePrograms from "./pages/Coordinator/CoorMatriculePrograms";
+import CoorAPCreate from "./pages/Coordinator/CoorAPCreate";
+import CoorAPEdit from "./pages/Coordinator/CoorAPEdit";
 
 //Gestión de periodos
 import CoorPeriods from "./pages/Coordinator/CoorPeriods";
@@ -65,6 +67,8 @@ export const routes = [
       { path: "programas/registrar", element: <CoorProgramsCreate /> },
       { path: "programas/editar/:id", element: <CoorProgramsEdit /> },
       { path: "programas/:id", element: <CoorProgram /> },
+      { path: "programas/:id/registrar", element: <CoorAPCreate /> },
+      { path: "programas/:id/editar/:id_ap", element: <CoorAPEdit /> },
       { path: "programas/:id/:id_asig", element: <CoorAsigCompetences /> },
 
       { path: "matriculas", element: <CoorPeriods /> },

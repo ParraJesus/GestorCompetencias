@@ -18,7 +18,7 @@ router.get("/:id", (req, res) => {
 });
 
 //CREAR
-router.post("/create", (req, res) => {
+router.post("/", (req, res) => {
   const {
     programa_id,
     nombre,
@@ -30,6 +30,7 @@ router.post("/create", (req, res) => {
     tipo_materia,
     estado,
   } = req.body;
+  console.log(req.body);
 
   db.query(
     "CALL AP_Crear(?, ?, ?, ?, ?, ?, ?, ?, ?)",
@@ -92,7 +93,7 @@ router.put("/update/:id", (req, res) => {
 });
 
 //ELIMINAR
-router.put("/delete/:id", (req, res) => {
+router.delete("/:id", (req, res) => {
   const { id } = req.params;
 
   db.query("CALL AP_Deshabilitar(?)", [id], (err, result) => {
@@ -103,6 +104,20 @@ router.put("/delete/:id", (req, res) => {
         .send("Error al deshabilitar la asignatura en la plantilla.");
     } else {
       res.status(200).send("Asignatura deshabilitada con éxito.");
+    }
+  });
+});
+
+//HABILITAR
+router.put("/habilitar/:id", (req, res) => {
+  const { id } = req.params;
+
+  db.query("CALL AP_Habilitar(?)", [id], (err, result) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send("Error al habilitar la asignatura en la plantilla.");
+    } else {
+      res.status(200).send("Asignatura habilitada con éxito.");
     }
   });
 });

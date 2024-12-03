@@ -56,7 +56,6 @@ router.post("/create", (req, res) => {
     tipo_programa,
     estado,
   } = req.body;
-  console.log(req.body);
   db.query(
     "CALL Programa_Crear(?, ?, ?, ?, ?, ?, ?, ?)",
     [

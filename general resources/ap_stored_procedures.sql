@@ -12,6 +12,7 @@ BEGIN
         NOMBRE,
         DESCRIPCION,
         CREDITOS,
+        SEMESTRE,
         HORAS_SEMANA,
         MODALIDAD,
         TIPO_MATERIA,
@@ -55,6 +56,7 @@ BEGIN
         p.MODALIDAD, 
         p.TIPO_PROGRAMA, 
         p.FACULTAD,
+        p.DURACION_SEMESTRES,
         JSON_ARRAYAGG(
             JSON_OBJECT(
                 'SEMESTRE', a.SEMESTRE,
@@ -97,9 +99,7 @@ BEGIN
     GROUP BY 
         p.PROGRAMA_ID;
 END//
-
 DELIMITER ;
-
 
 
 
