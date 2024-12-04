@@ -101,12 +101,6 @@ BEGIN
 END//
 DELIMITER ;
 
-
-
-
-
-
-
 /*	CREAR	*/
 
 DELIMITER //

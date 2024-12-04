@@ -67,3 +67,26 @@
   grid-template-rows: repeat(auto-fit, 260px);
   gap: 5px;
 }
+
+.main_matricule {
+  padding-top: 20px;
+}
+
+.main_section {
+  height: 600px;
+  width: 100%;
+  overflow-y: scroll;
+  transition: max-height 0.3s ease, overflow 0.3s ease;
+}
+
+.divisor {
+  border: 0;
+  height: 1px;
+  background: var(--bg-color-5);
+  margin: 20px 0;
+}
+
+.main_content > section + .divisor {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}

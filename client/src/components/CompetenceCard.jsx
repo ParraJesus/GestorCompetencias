@@ -1,12 +1,22 @@
 import React, { useState } from "react";
 import "../stylesheets/UserCard.css";
 import { ReactComponent as Chevron } from "../assets/bx-chevron-down.svg";
+import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const CompetenceCard = ({ competenceData, handleRel, buttonText }) => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const navigate = useNavigate();
+  const { id, id_asig } = useParams();
 
   const handleButton = () => {
     handleRel(competenceData.CP_ID);
+  };
+
+  const handleEdit = () => {
+    navigate(
+      `/coordinador/programas/${id}/${id_asig}/competencias/editar/${competenceData.CP_ID}`
+    );
   };
 
   return (
@@ -78,7 +88,9 @@ const CompetenceCard = ({ competenceData, handleRel, buttonText }) => {
             </ul>
           </div>
           <div className="expandableCard_button_container">
-            <button className="button-second">Editar</button>
+            <button className="button-second" onClick={handleEdit}>
+              Editar
+            </button>
             <button className="button-first" onClick={handleButton}>
               {buttonText}
             </button>

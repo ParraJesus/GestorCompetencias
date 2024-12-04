@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 import { ReactComponent as PlusIcon } from "../assets/bx-plus.svg";
 
-const AddCard = ({ hoverTitle, enlace }) => {
+const AddCard = ({ hoverTitle, enlace, height }) => {
   const navigate = useNavigate();
   const handleClic = () => {
     navigate(enlace);

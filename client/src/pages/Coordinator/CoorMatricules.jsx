@@ -5,6 +5,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import MatriculeCard from "../../components/MatriculeCard";
 import SearchBar from "../../components/SearchBar";
 import MatriculeTitleCard from "../../components/MatriculeTitleCard";
+import AddCard from "../../components/AddCard";
 
 import Style from "../../stylesheets/UserPageTemplate.module.css";
 
@@ -75,7 +76,6 @@ function App() {
   //Traer Información de las matrículas
   const [matriculesData, setMatriculesData] = useState([]);
   const [isLoadingMatricules, setIsLoadingMatricules] = useState(true);
-
   useEffect(() => {
     const fetchItems = async () => {
       try {
@@ -138,6 +138,10 @@ function App() {
               cantidadEstudiantes={matricula.CantidadEstudiantes}
             />
           ))}
+        <AddCard
+          enlace={`/coordinador/matriculas/${periodo_id}/${programa_id}/registrar`}
+          hoverTitle={"Registrar Matrícula"}
+        />
       </div>
     </main>
   );

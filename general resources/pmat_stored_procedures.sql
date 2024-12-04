@@ -45,6 +45,20 @@ DELIMITER ;
 /*	CREAR	*/
 
 DELIMITER //
+CREATE PROCEDURE PMAT_CrearConSalida(
+    IN p_periodo_id INT,
+    IN p_prof_id INT,
+    IN p_evaluador_id INT,
+     OUT new_pmat_id INT
+)
+BEGIN
+    INSERT INTO PERIODO_MATRICULA (PERIODO_ID, PROF_ID, EVALUADOR_ID)
+    VALUES (p_periodo_id, p_prof_id, p_evaluador_id);
+    SET new_pmat_id = LAST_INSERT_ID();
+END //
+DELIMITER ;
+
+DELIMITER //
 CREATE PROCEDURE PMAT_Crear(
     IN p_periodo_id INT,
     IN p_prof_id INT,

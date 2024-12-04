@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 import "../stylesheets/UserCard.css";
 
@@ -14,6 +15,14 @@ const MatriculeCard = ({
   evaluadorApellido,
   cantidadEstudiantes,
 }) => {
+  const { periodo_id, programa_id } = useParams();
+  const navigate = useNavigate();
+  const handleEditar = () => {
+    navigate(
+      `/coordinador/matriculas/${periodo_id}/${programa_id}/editar/${id}`
+    );
+  };
+
   return (
     <div className={`expandableCard_container expanded programCard`}>
       <div className="expandableCard_open_data_container">
@@ -38,7 +47,6 @@ const MatriculeCard = ({
         </div>
       </div>
       <div className="expandableCard_button_container">
-        <button className="button-second">Editar</button>
         <button className="button-first" onClick={() => {}}>
           Generar Informe
         </button>

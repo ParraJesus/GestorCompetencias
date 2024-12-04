@@ -23,7 +23,8 @@ DELIMITER //
 CREATE PROCEDURE RAP_Crear(
 	IN p_cp_id INT,
     IN p_description TEXT,
-    IN p_ponderacion DECIMAL(5,2)
+    IN p_ponderacion DECIMAL(5,2),
+    OUT new_id INT
 )
 BEGIN
 	INSERT INTO RAP(
@@ -36,6 +37,7 @@ BEGIN
         p_description,
         p_ponderacion
     );
+    SET new_id = LAST_INSERT_ID();
 END //
 DELIMITER ;
 

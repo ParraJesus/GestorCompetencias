@@ -125,7 +125,8 @@ CREATE PROCEDURE CP_Crear(
     IN p_descripcion VARCHAR(255),
     IN p_nivel VARCHAR(255),
     IN p_ponderacion DECIMAL(5,2),
-    IN p_estado enum('0', '1')
+    IN p_estado enum('0', '1'),
+    OUT new_id INT
 )
 BEGIN
     INSERT INTO competencia_programa (
@@ -144,6 +145,7 @@ BEGIN
         p_ponderacion,
         p_estado
     );
+    SET new_id = LAST_INSERT_ID();
 END //
 DELIMITER ;
 

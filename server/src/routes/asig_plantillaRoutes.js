@@ -30,8 +30,6 @@ router.post("/", (req, res) => {
     tipo_materia,
     estado,
   } = req.body;
-  console.log(req.body);
-
   db.query(
     "CALL AP_Crear(?, ?, ?, ?, ?, ?, ?, ?, ?)",
     [

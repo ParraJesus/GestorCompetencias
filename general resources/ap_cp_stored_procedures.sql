@@ -80,8 +80,6 @@ CREATE PROCEDURE AP_CP_Crear(
 )
 BEGIN
     DECLARE msg VARCHAR(255);
-    SET msg = "...";
-    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = msg;
 
     -- Verificar si la asignatura plantilla existe
     IF NOT EXISTS (
@@ -122,13 +120,14 @@ END$$
 DELIMITER ;
 
 
+
 /*	ELIMINAR	*/
 
 DELIMITER //
 
 CREATE PROCEDURE AP_CP_Eliminar(
-    IN p_cp_id INT,
-    IN p_ap_id INT
+	IN p_ap_id INT,
+    IN p_cp_id INT
 )
 BEGIN
     DELETE FROM AP_CP
@@ -136,3 +135,5 @@ BEGIN
 END //
 
 DELIMITER ;
+
+select * from ap_cp;

@@ -175,3 +175,14 @@
   min-height: 80px;
   border: 4px dotted var(--font-color-3);
 }
+
+.selected {
+  background-color: var(--bg-color-5);
+}
+
+.selected .texto-mayor,
+.selected h2,
+.selected .small-icon {
+  color: #fff;
+  fill: #fff;
+}

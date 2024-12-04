@@ -36,7 +36,13 @@ import CoorAPEdit from "./pages/Coordinator/CoorAPEdit";
 //Gestión de periodos
 import CoorPeriods from "./pages/Coordinator/CoorPeriods";
 import CoorMatricules from "./pages/Coordinator/CoorMatricules";
+import CoorMatriculesCreate from "./pages/Coordinator/CoorMatriculesCreate";
+import CoorMatriculesEdit from "./pages/Coordinator/CoorMatriculesEdit";
+
+//Competencias
 import CoorAsigCompetences from "./pages/Coordinator/CoorAsigCompetences";
+import CoorAsigCompetencesCreate from "./pages/Coordinator/CoorAsigCompetencesCreate";
+import CoorAsigCompetencesEdit from "./pages/Coordinator/CoorAsigCompetencesEdit";
 
 export const routes = [
   {
@@ -70,12 +76,28 @@ export const routes = [
       { path: "programas/:id/registrar", element: <CoorAPCreate /> },
       { path: "programas/:id/editar/:id_ap", element: <CoorAPEdit /> },
       { path: "programas/:id/:id_asig", element: <CoorAsigCompetences /> },
+      {
+        path: "programas/:id/:id_asig/competencias/registrar",
+        element: <CoorAsigCompetencesCreate />,
+      },
+      {
+        path: "programas/:id/:id_asig/competencias/editar/:id_cp",
+        element: <CoorAsigCompetencesEdit />,
+      },
 
       { path: "matriculas", element: <CoorPeriods /> },
       { path: "matriculas/:periodo_id", element: <CoorMatriculePrograms /> },
       {
         path: "matriculas/:periodo_id/:programa_id",
         element: <CoorMatricules />,
+      },
+      {
+        path: "matriculas/:periodo_id/:programa_id/registrar",
+        element: <CoorMatriculesCreate />,
+      },
+      {
+        path: "matriculas/:periodo_id/:programa_id/editar/:id",
+        element: <CoorMatriculesEdit />,
       },
     ],
   },

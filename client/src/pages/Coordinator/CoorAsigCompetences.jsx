@@ -5,6 +5,7 @@ import Style from "../../stylesheets/UserPageTemplate.module.css";
 import AsignatureTitleCard from "../../components/AsignatureTitleCard.jsx";
 import TitleCard from "../../components/TitleCard.jsx";
 import CompetenceCard from "../../components/CompetenceCard.jsx";
+import AddCard from "../../components/AddCard.jsx";
 import { useParams } from "react-router-dom";
 
 function App() {
@@ -13,42 +14,10 @@ function App() {
   //Traer competencias de todo el programa
   const [cpData, setCpData] = useState([]);
   const [isLoadingCp, setIsLoadingCp] = useState(true);
-  useEffect(() => {
-    const fetchItems = async () => {
-      try {
-        setIsLoadingCp(true);
-        const response = await axios.get(
-          `http://localhost:5000/competenciasprograma/${id}`
-        );
-        setCpData(response.data.CompetenciasJSON);
-      } catch (error) {
-        console.error("Error al hacer la solicitud:", error);
-      } finally {
-        setIsLoadingCp(false);
-      }
-    };
-    fetchItems();
-  }, [id, id_asig]);
 
   //Traer Competencias de la asignatura plantilla
   const [apCpData, setApCpData] = useState([]);
   const [isLoadingApCp, setIsLoadingApCp] = useState(true);
-  useEffect(() => {
-    const fetchItems = async () => {
-      try {
-        setIsLoadingApCp(true);
-        const response = await axios.get(
-          `http://localhost:5000/apcp/${id_asig}`
-        );
-        setApCpData(response.data.CompetenciasJSON);
-      } catch (error) {
-        console.error("Error al hacer la solicitud:", error);
-      } finally {
-        setIsLoadingApCp(false);
-      }
-    };
-    fetchItems();
-  }, [id, id_asig]);
 
   //Traer datos de la asignatura plantilla
   const [apData, setApData] = useState([]);
@@ -78,6 +47,10 @@ function App() {
         `http://localhost:5000/apcp/${id_asig}/${id_competence}`
       );
       alert(response.data);
+
+      // Refrescar datos después de agregar
+      await fetchCpData();
+      await fetchApCpData();
     } catch (error) {
       console.error(error);
       alert("Hubo un error al registrar el cambio.");
@@ -91,11 +64,51 @@ function App() {
         `http://localhost:5000/apcp/${id_asig}/${id_competence}`
       );
       alert(response.data);
+
+      // Refrescar datos después de remover
+      await fetchCpData();
+      await fetchApCpData();
     } catch (error) {
       console.error(error);
       alert("Hubo un error al registrar el cambio.");
     }
   };
+
+  // Crear funciones separadas para traer los datos
+  const fetchCpData = async () => {
+    try {
+      setIsLoadingCp(true);
+      const response = await axios.get(
+        `http://localhost:5000/competenciasprograma/${id}`
+      );
+      setCpData(response.data.CompetenciasJSON);
+    } catch (error) {
+      console.error("Error al hacer la solicitud:", error);
+    } finally {
+      setIsLoadingCp(false);
+    }
+  };
+
+  const fetchApCpData = async () => {
+    try {
+      setIsLoadingApCp(true);
+      const response = await axios.get(`http://localhost:5000/apcp/${id_asig}`);
+      setApCpData(response.data.CompetenciasJSON);
+    } catch (error) {
+      console.error("Error al hacer la solicitud:", error);
+    } finally {
+      setIsLoadingApCp(false);
+    }
+  };
+
+  // Actualizar useEffect para que usen las nuevas funciones
+  useEffect(() => {
+    fetchCpData();
+  }, [id]);
+
+  useEffect(() => {
+    fetchApCpData();
+  }, [id_asig]);
 
   return (
     <main className={`${Style.main} ${Style.main_two_columns}`}>
@@ -145,6 +158,10 @@ function App() {
               />
             ))
           )}
+          <AddCard
+            enlace={`/coordinador/programas/${id}/${id_asig}/competencias/registrar`}
+            hoverTitle={"Añadir Competencia del programa"}
+          />
         </div>
       </div>
     </main>

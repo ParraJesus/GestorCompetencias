@@ -37,3 +37,9 @@
   border-image: linear-gradient(to right, #7476dc, #c187e2);
   border-image-slice: 1;
 }
+
+.fieldSet {
+  border: 2px solid #7476dc;
+  margin-top: 10px;
+  border-radius: 10px;
+}

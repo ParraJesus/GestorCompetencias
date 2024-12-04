@@ -133,3 +133,7 @@ button:hover {
 .logOut {
   cursor: pointer;
 }
+
+textarea {
+  resize: vertical;
+}

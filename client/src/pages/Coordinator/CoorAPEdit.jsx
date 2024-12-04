@@ -75,7 +75,7 @@ function EditarAsignatura() {
 
     try {
       const response = await axios.put(
-        `http://localhost:5000/asig_plantilla/update/${id}`,
+        `http://localhost:5000/asig_plantilla/update/${id_ap}`,
         formData
       );
       alert("Asignatura actualizada exitosamente.");
