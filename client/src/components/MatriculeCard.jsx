@@ -14,6 +14,8 @@ const MatriculeCard = ({
   evaluadorNombre,
   evaluadorApellido,
   cantidadEstudiantes,
+  id_pmat,
+  handleGenerateInform,
 }) => {
   const { periodo_id, programa_id } = useParams();
   const navigate = useNavigate();
@@ -21,6 +23,10 @@ const MatriculeCard = ({
     navigate(
       `/coordinador/matriculas/${periodo_id}/${programa_id}/editar/${id}`
     );
+  };
+
+  const handleInforme = () => {
+    handleGenerateInform();
   };
 
   return (
@@ -43,11 +49,14 @@ const MatriculeCard = ({
             <p className="texto-mayor">
               Cantidad de estudiantes: {cantidadEstudiantes}
             </p>
+            <p className="texto-mayor">
+              Registro de matrícula: <strong>#{id_pmat}</strong>
+            </p>
           </div>
         </div>
       </div>
       <div className="expandableCard_button_container">
-        <button className="button-first" onClick={() => {}}>
+        <button className="button-first" onClick={handleInforme}>
           Generar Informe
         </button>
       </div>

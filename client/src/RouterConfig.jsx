@@ -44,6 +44,8 @@ import CoorAsigCompetences from "./pages/Coordinator/CoorAsigCompetences";
 import CoorAsigCompetencesCreate from "./pages/Coordinator/CoorAsigCompetencesCreate";
 import CoorAsigCompetencesEdit from "./pages/Coordinator/CoorAsigCompetencesEdit";
 
+import ProfPeriods from "./pages/Professor/ProfPeriods";
+
 export const routes = [
   {
     path: "/",
@@ -117,7 +119,7 @@ export const routes = [
         <ProfessorLayout />
       </PrivateRoute>
     ),
-    children: [{ path: "periodos", element: <NotFound /> }],
+    children: [{ path: "periodos", element: <ProfPeriods /> }],
   },
   {
     path: "/evaluador",

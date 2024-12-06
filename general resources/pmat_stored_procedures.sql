@@ -89,6 +89,166 @@ BEGIN
 END //
 DELIMITER ;
 
+/*	INFORME	*/
+
+DELIMITER $$
+
+CREATE PROCEDURE Informe_MatriculaAsignatura(
+    IN p_pmat_id INT
+)
+BEGIN
+    SELECT 
+        -- Detalles del período
+        pmat.PERIODO_ID AS ID_Periodo,
+        per.ANO AS Año,
+        per.CICLO AS Ciclo,
+        
+        -- Detalles de la materia
+        ap.AP_ID AS ID_MateriaPlantilla,
+        as_sem.AS_ID AS ID_Materia,
+        as_sem.NOMBRE AS Nombre_Materia,
+        as_sem.GRUPO AS Grupo,
+        
+        -- Detalles del profesor
+        prof.PROF_ID AS ID_Profesor,
+        prof.NOMBRE AS Nombre_Profesor,
+        prof.APELLIDO AS Apellido_Profesor,
+        prof.ULTIMO_TITULO AS Titulo_Profesor,
+        prof.CORREO_INSTITUCIONAL AS Correo_Profesor,
+        
+        -- Detalles del evaluador externo
+        eval_ext.EVALUADOR_ID AS ID_Evaluador,
+        eval_ext.NOMBRE AS Nombre_Evaluador,
+        eval_ext.APELLIDO AS Apellido_Evaluador,
+        eval_ext.CORREO_INSTITUCIONAL AS Correo_Evaluador,
+        
+        -- Competencias, RAs y rúbricas
+        JSON_ARRAYAGG(
+            JSON_OBJECT(
+                'Competencia', cp.NOMBRE,
+                'ResultadosAprendizaje', (
+                    SELECT JSON_ARRAYAGG(
+                        JSON_OBJECT(
+                            'RAANombre', rap.DESCRIPCION,
+                            'RAAPonderacion', rap.PONDERACION
+                        )
+                    )
+                    FROM RAA rap
+                    WHERE rap.CS_ID IN (
+                        SELECT CS_ID 
+                        FROM AS_CS 
+                        WHERE AS_ID = as_sem.AS_ID
+                    )
+                ),
+                'Rubricas', (
+                    SELECT JSON_ARRAYAGG(
+                        JSON_OBJECT(
+                            'RUANombre', rub.DESCRIPCION,
+                            'RUAPonderacion', rub.PONDERACION
+                        )
+                    )
+                    FROM RUA rub
+                    WHERE rub.RAA_ID IN (
+                        SELECT RAA_ID
+                        FROM RAA
+                        WHERE CS_ID IN (
+                            SELECT CS_ID 
+                            FROM AS_CS 
+                            WHERE AS_ID = as_sem.AS_ID
+                        )
+                    )
+                )
+            )
+        ) AS Competencias,
+        
+        -- Evaluaciones de profesor y evaluador
+        (
+            SELECT JSON_ARRAYAGG(
+                JSON_OBJECT(
+                    'Evaluacion_Profesor', evalu_prof.NOTA,
+                    'Evaluacion_Evaluador', evalu_eval.NOTA
+                )
+            )
+            FROM EVALUACION_PROFESOR evalu_prof
+            JOIN EVALUACION_EXTERNO evalu_eval 
+                ON evalu_prof.RUA_ID = evalu_eval.RUA_ID
+            WHERE evalu_prof.PROF_ID = prof.PROF_ID
+              AND evalu_eval.EVALUADOR_ID = eval_ext.EVALUADOR_ID
+              AND evalu_prof.RUA_ID IN (
+                  SELECT RUA_ID 
+                  FROM RUA
+                  WHERE RAA_ID IN (
+                      SELECT RAA_ID 
+                      FROM RAA 
+                      WHERE CS_ID IN (
+                          SELECT CS_ID 
+                          FROM AS_CS 
+                          WHERE AS_ID = as_sem.AS_ID
+                      )
+                  )
+              )
+        ) AS Evaluaciones,
+        
+        -- Estudiantes
+        (
+            SELECT JSON_ARRAYAGG(
+                JSON_OBJECT(
+                    'Nombre', est.NOMBRE,
+                    'Apellido', est.APELLIDO
+                )
+            )
+            FROM ESTUDIANTE est
+            JOIN MATRICULA matr ON est.ESTUDIANTE_ID = matr.ESTUDIANTE_ID
+            WHERE matr.PMAT_ID = p_pmat_id
+        ) AS Estudiantes
+    FROM 
+        PERIODO_MATRICULA pmat
+    INNER JOIN 
+        PERIODO per ON pmat.PERIODO_ID = per.PERIODO_ID
+    INNER JOIN 
+        ASIGNATURA_SEMESTRE as_sem ON pmat.PMAT_ID = as_sem.AS_ID
+    INNER JOIN 
+        ASIGNATURA_PLANTILLA ap ON as_sem.AP_ID = ap.AP_ID
+    INNER JOIN 
+        PROFESOR prof ON pmat.PROF_ID = prof.PROF_ID
+    INNER JOIN 
+        EVALUADOR_EXTERNO eval_ext ON pmat.EVALUADOR_ID = eval_ext.EVALUADOR_ID
+    INNER JOIN 
+        AS_CS asc_map ON as_sem.AS_ID = asc_map.AS_ID
+    INNER JOIN 
+        COMPETENCIA_SEMESTRE cp ON asc_map.CS_ID = cp.CS_ID
+    WHERE 
+        pmat.PMAT_ID = p_pmat_id
+    GROUP BY 
+        pmat.PERIODO_ID, ap.AP_ID, as_sem.AS_ID, prof.PROF_ID, eval_ext.EVALUADOR_ID;
+END$$
+
+DELIMITER ;
+
+select * from periodo_matricula;
+CALL informe_MatriculaAsignatura(2);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

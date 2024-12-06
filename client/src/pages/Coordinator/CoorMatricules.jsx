@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
+import { useReactToPrint } from "react-to-print";
 
 import MatriculeCard from "../../components/MatriculeCard";
 import SearchBar from "../../components/SearchBar";
@@ -31,10 +32,10 @@ function App() {
     setSearchQuery(query);
   };
 
-  //Traer información del programa
-
+  // Traer información del programa
   const [programsData, setProgramsData] = useState([]);
   const [isLoadingProgram, setIsLoadingProgram] = useState(true);
+
   useEffect(() => {
     const fetchItems = async () => {
       try {
@@ -52,7 +53,7 @@ function App() {
     fetchItems();
   }, []);
 
-  //Traer información del periodo
+  // Traer información del periodo
   const [perdiodData, setPeriodData] = useState([]);
   const [isLoadingPeriod, setIsLoadingPeriod] = useState(true);
 
@@ -73,9 +74,10 @@ function App() {
     fetchItems();
   }, [periodo_id]);
 
-  //Traer Información de las matrículas
+  // Traer Información de las matrículas
   const [matriculesData, setMatriculesData] = useState([]);
   const [isLoadingMatricules, setIsLoadingMatricules] = useState(true);
+
   useEffect(() => {
     const fetchItems = async () => {
       try {
@@ -93,16 +95,34 @@ function App() {
     fetchItems();
   }, [periodo_id]);
 
-  if (programsData.length === 0) {
-    return (
-      <div className={Style.main}>
-        <div className={Style.main_header}>
-          <div className="paragraph">Cargando...</div>
-        </div>
-        <div className={Style.main_content}></div>
-      </div>
-    );
-  }
+  const [informData, setInformData] = useState([]);
+  const reportRef = useRef();
+
+  const handlePrint = useReactToPrint({
+    content: () => reportRef.current,
+    documentTitle: "Informe",
+  });
+
+  const generateInform = (idPeriodoMatricula) => {
+    const fetchItems = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:5000/matriculas/informeasignatura/${idPeriodoMatricula}`
+        );
+        setInformData(response.data);
+      } catch (error) {
+        console.error("Error al hacer la solicitud:", error);
+      }
+    };
+    fetchItems();
+  };
+
+  // Usamos useEffect para imprimir una vez que informData haya cambiado
+  useEffect(() => {
+    if (informData.length > 0) {
+      handlePrint(); // Generamos el informe cuando los datos estén listos
+    }
+  }, [informData]);
 
   return (
     <main className={Style.main}>
@@ -136,12 +156,98 @@ function App() {
               evaluadorApellido={matricula.ApellidoEvaluador}
               evaluadorID={matricula.ID_Evaluador}
               cantidadEstudiantes={matricula.CantidadEstudiantes}
+              id_pmat={matricula.ID_PeriodoMatricula}
+              handleGenerateInform={() =>
+                generateInform(matricula.ID_PeriodoMatricula)
+              }
             />
           ))}
         <AddCard
           enlace={`/coordinador/matriculas/${periodo_id}/${programa_id}/registrar`}
           hoverTitle={"Registrar Matrícula"}
         />
+      </div>
+
+      <div id="reporte" style={{}} ref={reportRef}>
+        <div>
+          <h1>Informe Generado</h1>
+
+          {informData.length > 0 &&
+            informData.map((inform, index) => (
+              <div key={index}>
+                <h2>{`Materia: ${inform.Nombre_Materia} (${inform.Grupo})`}</h2>
+                <p>
+                  <strong>Profesor:</strong> {inform.Nombre_Profesor}{" "}
+                  {inform.Apellido_Profesor} ({inform.Titulo_Profesor})
+                </p>
+                <p>
+                  <strong>Correo del Profesor:</strong> {inform.Correo_Profesor}
+                </p>
+                <p>
+                  <strong>Evaluador:</strong> {inform.Nombre_Evaluador}{" "}
+                  {inform.Apellido_Evaluador}
+                </p>
+                <p>
+                  <strong>Correo del Evaluador:</strong>{" "}
+                  {inform.Correo_Evaluador}
+                </p>
+
+                <h3>Competencias</h3>
+                {inform.Competencias &&
+                  inform.Competencias.map((competencia, idx) => (
+                    <div key={idx}>
+                      <h4>{competencia.Competencia}</h4>
+                      <p>
+                        <strong>Resultados de Aprendizaje:</strong>
+                      </p>
+                      <ul>
+                        {competencia.ResultadosAprendizaje.map(
+                          (resultado, rIdx) => (
+                            <li
+                              key={rIdx}
+                            >{`${resultado.RAANombre} (Ponderación: ${resultado.RAAPonderacion}%)`}</li>
+                          )
+                        )}
+                      </ul>
+                      <p>
+                        <strong>Rubricas:</strong>
+                      </p>
+                      <ul>
+                        {competencia.Rubricas.map((rubrica, rIdx) => (
+                          <li
+                            key={rIdx}
+                          >{`${rubrica.RUANombre} (Ponderación: ${rubrica.RUAPonderacion}%)`}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+
+                {/* Aquí añadimos la sección de Evaluaciones */}
+                <h3>Evaluaciones</h3>
+                {inform.Evaluaciones ? (
+                  <ul>
+                    {inform.Evaluaciones.map((evaluacion, evalIdx) => (
+                      <li key={evalIdx}>
+                        <strong>{evaluacion.NombreEvaluacion}</strong>:{" "}
+                        {evaluacion.DescripcionEvaluacion}
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p>No hay evaluaciones disponibles.</p>
+                )}
+
+                <h3>Estudiantes</h3>
+                {inform.Estudiantes &&
+                  inform.Estudiantes.map((estudiante, estIdx) => (
+                    <p key={estIdx}>
+                      {estudiante.Nombre} {estudiante.Apellido}
+                    </p>
+                  ))}
+              </div>
+            ))}
+        </div>
+        <button onClick={handlePrint}>Imprimir Informe</button>
       </div>
     </main>
   );

@@ -95,11 +95,9 @@ router.post("/registrar", (req, res) => {
 
     // Si no se obtuvo un ID válido, devolver un error
     if (!newAsignaturaId) {
-      return res
-        .status(500)
-        .json({
-          error: "No se pudo obtener el ID de la nueva asignatura semestre.",
-        });
+      return res.status(500).json({
+        error: "No se pudo obtener el ID de la nueva asignatura semestre.",
+      });
     }
 
     // Paso 3: Llamar al procedimiento PMAT_CrearConSalida para registrar el periodo de matrícula y obtener el ID
@@ -112,12 +110,10 @@ router.post("/registrar", (req, res) => {
       [periodoId, profesorId, evaluadorId],
       (err, pmatResult) => {
         if (err) {
-          return res
-            .status(500)
-            .json({
-              error: "Error al registrar el periodo de matrícula.",
-              err,
-            });
+          return res.status(500).json({
+            error: "Error al registrar el periodo de matrícula.",
+            err,
+          });
         }
 
         // Obtener el ID del periodo de matrícula desde la variable de salida
@@ -125,11 +121,9 @@ router.post("/registrar", (req, res) => {
 
         // Si no se obtuvo un ID válido, devolver un error
         if (!newPeriodoMatriculaId) {
-          return res
-            .status(500)
-            .json({
-              error: "No se pudo obtener el ID del periodo de matrícula.",
-            });
+          return res.status(500).json({
+            error: "No se pudo obtener el ID del periodo de matrícula.",
+          });
         }
 
         // Paso 4: Crear matrículas para cada estudiante
@@ -187,6 +181,19 @@ router.get("/detalles_as/:id_periodo/:id_programa", (req, res) => {
       }
     }
   );
+});
+
+//GENERAR INFORME
+router.get("/informeasignatura/:id_pmat", (req, res) => {
+  const { id_pmat } = req.params;
+  db.query("CAll Informe_MatriculaAsignatura(?)", [id_pmat], (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send("Error al obtener");
+    } else {
+      res.status(200).json(results[0]);
+    }
+  });
 });
 
 module.exports = router;

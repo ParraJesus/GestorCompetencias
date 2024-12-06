@@ -31,14 +31,6 @@ const ProgramCard = ({
       </div>
       <div className="expandableCard_button_container">
         <button
-          className="button-second"
-          onClick={() => {
-            handleInform();
-          }}
-        >
-          Generar Informe
-        </button>
-        <button
           className="button-first"
           onClick={() => {
             handleMatricule(id);

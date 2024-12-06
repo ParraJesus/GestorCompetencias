@@ -32,7 +32,10 @@ BEGIN
 END //
 DELIMITER ;
 
+CALL AS_ObtenerDetallesPorPeriodoYPrograma("10","1");
+
 DELIMITER $$
+
 CREATE PROCEDURE AS_ObtenerDetallesPorPeriodoYPrograma(
     IN p_periodo_id INT,
     IN p_programa_id INT
@@ -48,6 +51,7 @@ BEGIN
         eval_ext.NOMBRE AS NombreEvaluador,
         eval_ext.APELLIDO AS ApellidoEvaluador,
         eval_ext.EVALUADOR_ID AS ID_Evaluador,
+        pmat.PMAT_ID AS ID_PeriodoMatricula,
         COUNT(matr.ESTUDIANTE_ID) AS CantidadEstudiantes
     FROM 
         ASIGNATURA_SEMESTRE as_sem
@@ -68,10 +72,13 @@ BEGIN
         AND prog.PROGRAMA_ID = p_programa_id
     GROUP BY 
         as_sem.NOMBRE, as_sem.GRUPO, as_sem.AS_ID, 
-        prof.NOMBRE, prof.PROF_ID, 
-        eval_ext.NOMBRE, eval_ext.EVALUADOR_ID;
+        prof.NOMBRE, prof.APELLIDO, prof.PROF_ID, 
+        eval_ext.NOMBRE, eval_ext.APELLIDO, eval_ext.EVALUADOR_ID, 
+        pmat.PMAT_ID;
 END$$
+
 DELIMITER ;
+
 
 
 /*	CREAR	*/
